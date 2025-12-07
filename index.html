@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEX DEVELOPER - Portfolio Jeu</title>
+    <title>Freelancer Portfolio - Portfolio Jeu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -1289,7 +1289,7 @@
     <!-- Écran de démarrage -->
     <div class="start-screen" id="startScreen">
         <div class="pixel-avatar"></div>
-        <h1 class="game-title">CODEX DEVELOPER</h1>
+        <h1 class="game-title">Freelancer Portfolio</h1>
         <p class="subtitle">PORTFOLIO INTERACTIF - NIVEAU PRO</p>
         <button class="start-button" id="startButton">
             <i class="fas fa-play"></i> COMMENCER LE JEU
@@ -1359,7 +1359,7 @@
                     </div>
                 </div>
                 
-                <div class="game-title-hud">CODEX DEVELOPER</div>
+                <div class="game-title-hud">Freelancer Portfolio</div>
                 
                 <div class="level-indicator">
                     <i class="fas fa-map-marker-alt"></i> ZONE: PORTFOLIO
@@ -1379,7 +1379,7 @@
                         <i class="fas fa-terminal"></i> TERMINAL DE COMMANDES
                     </div>
                     <div class="console-output" id="consoleOutput">
-                        <div class="console-line system">> Système de portfolio Codex Developer initialisé</div>
+                        <div class="console-line system">> Système de portfolio Freelancer Portfolio initialisé</div>
                         <div class="console-line system">> Bienvenue dans l'interface interactive</div>
                         <div class="console-line system">> Tapez 'aide' pour la liste des commandes</div>
                         <div class="console-line system">> Touchez un nœud sur la carte pour commencer</div>
@@ -1597,13 +1597,13 @@
                     sidebarTitle: "MENU DE NAVIGATION",
                     consoleTitle: "TERMINAL DE COMMANDES",
                     consoleLines: [
-                        "> Système de portfolio Codex Developer initialisé",
+                        "> Système de portfolio Freelancer Portfolio initialisé",
                         "> Bienvenue dans l'interface interactive",
                         "> Tapez 'aide' pour la liste des commandes",
                         "> Touchez un nœud sur la carte pour commencer",
                         "> Cliquez sur <i class='fas fa-bars'></i> pour ouvrir le menu latéral"
                     ],
-                    gameTitle: "CODEX DEVELOPER",
+                    gameTitle: "Freelancer Portfolio",
                     level: "NIVEAU",
                     xp: "XP",
                     zone: "ZONE: PORTFOLIO",
@@ -1618,193 +1618,8 @@
                         menu: "> Menu de navigation basculé",
                         email: "Client email ouvert. Rédigez votre message!"
                     }
-                },
-                en: {
-                    start: "START GAME",
-                    consolePlaceholder: "> Type a command...",
-                    loading: "LOADING PORTFOLIO...",
-                    projects: "PROJECTS",
-                    skills: "SKILLS",
-                    contact: "CONTACT",
-                    clear: "CLEAR",
-                    help: "HELP",
-                    menu: "MENU",
-                    sidebarTitle: "NAVIGATION MENU",
-                    consoleTitle: "COMMAND TERMINAL",
-                    consoleLines: [
-                        "> Codex Developer portfolio system initialized",
-                        "> Welcome to interactive interface",
-                        "> Type 'help' for command list",
-                        "> Touch a node on the map to begin",
-                        "> Click <i class='fas fa-bars'></i> to open side menu"
-                    ],
-                    gameTitle: "CODEX DEVELOPER",
-                    level: "LEVEL",
-                    xp: "XP",
-                    zone: "ZONE: PORTFOLIO",
-                    commands: {
-                        help: "=== AVAILABLE COMMANDS ===",
-                        projects: "=== MY PROJECTS ===",
-                        skills: "=== MY SKILLS ===",
-                        contact: "=== CONTACT ===",
-                        about: "=== ABOUT ME ===",
-                        level: "Current level",
-                        clear: "Console cleared. Type 'help' for commands.",
-                        menu: "> Navigation menu toggled",
-                        email: "Email client opened. Write your message!"
-                    }
                 }
             }
-        };
-
-        // Données en anglais
-        const portfolioDataEN = {
-            nodes: [
-                {
-                    id: "conversion",
-                    title: "🔄 WORD/LATEX CONVERSION",
-                    description: "Expert in complex document conversion with perfect preservation of mathematical formulas and references",
-                    icon: "fas fa-exchange-alt",
-                    color: "#00a8ff",
-                    type: "skill",
-                    details: {
-                        title: "Professional Word ↔ LaTeX Conversion",
-                        screenshot: "TECHNICAL DOCUMENTS",
-                        description: "Precise transformation of academic documents, theses, scientific articles and technical reports with advanced management of mathematical equations, complex tables and bibliographic references.",
-                        technologies: ["Microsoft Word", "LaTeX", "Overleaf"],
-                        features: [
-                            "Conversion preserving original layout",
-                            "Management of complex mathematical equations",
-                            "Automatic bibliographic references",
-                            "Optimized tables and figures",
-                            "Multilingual support"
-                        ]
-                    }
-                },
-                {
-                    id: "design",
-                    title: "🎨 GRAPHIC DESIGN",
-                    description: "Creation of social media posts",
-                    icon: "fas fa-paint-brush",
-                    color: "#9c88ff",
-                    type: "skill",
-                    details: {
-                        title: "Graphic Design & Visual Identity",
-                        screenshot: "DESIGN PROJECTS",
-                        description: "Creation of social media posts.",
-                        technologies: ["Illustrator", "Figma", "Canva", "After Effects", "AI"],
-                        features: [
-                            "Social media posts",
-                            "Use of AI"
-                        ],
-                        examples: [
-                            { name: "Portfolio", url: "https://www.behance.net/dorransira/projects" },
-                        ]
-                    }
-                },
-                {
-                    id: "static",
-                    title: "🌐 STATIC WEBSITES",
-                    description: "Ultra-fast, secure websites optimized for SEO",
-                    icon: "fas fa-file-code",
-                    color: "#4cd137",
-                    type: "project",
-                    details: {
-                        title: "Static Website Development",
-                        screenshot: "STATIC WEBSITES",
-                        description: "Creation of high-performance showcase websites, portfolios and landing pages with modern technologies for optimal loading speed and excellent SEO.",
-                        technologies: ["HTML5", "CSS3", "JavaScript", "NextJS", "Angular"],
-                        features: [
-                            "Responsive and mobile-first design",
-                            "Optimized SEO",
-                            "Smooth animations",
-                            "Possible free hosting"
-                        ],
-                        examples: [
-                            { name: "Application 1", url: "https://dorrabn.github.io/app/" },
-                            { name: "Application 2", url: "https://dorrabn.github.io/app1/" },
-                            { name: "Application 3", url: "https://dorrabn.github.io/app3/" },
-                            { name: "Application 4", url: "https://pfe25-4z3b.vercel.app/" }
-                        ]
-                    }
-                },
-                {
-                    id: "dynamic",
-                    title: "⚡ DYNAMIC APPLICATIONS",
-                    description: "Interactive web applications with databases and advanced features",
-                    icon: "fas fa-bolt",
-                    color: "#fbc531",
-                    type: "project",
-                    details: {
-                        title: "Dynamic Web Applications",
-                        screenshot: "WEB APPLICATIONS",
-                        description: "Development of complete web applications with back-end, databases, user authentication and interactive interfaces.",
-                        technologies: ["Nextjs", "Node.js", "MongoDB", "Angular", "Firebase", "Mysql"],
-                        features: [
-                            "Full-stack applications",
-                            "Secure databases",
-                            "Authentication systems",
-                            "RESTful APIs",
-                            "Cloud deployment"
-                        ],
-                        
-                        examples: [
-                            { name: "Application 1", url: "https://drive.google.com/file/d/1b5kIqUDiHW_mq-sim-QGijO7RKM4wl8n/view?usp=sharing" },
-                          
-                        ]
-                    }
-                },
-                {
-                    id: "powerbi",
-                    title: "📊 POWER BI & ANALYSIS",
-                    description: "Interactive dashboards and data analysis for decision making",
-                    icon: "fas fa-chart-line",
-                    color: "#e84118",
-                    type: "skill",
-                    details: {
-                        title: "Data Analysis & Power BI Dashboards",
-                        screenshot: "INTERACTIVE DASHBOARDS",
-                        description: "Creation of interactive Power BI dashboards, complex data analysis and visualizations to transform your data into actionable insights.",
-                        technologies: ["Power BI", "SQL", "Python"],
-                        features: [
-                            "Interactive and customizable dashboards",
-                            "Multiple connectors (SQL, Excel, APIs)",
-                            "Advanced visualizations",
-                            "Automatic refresh",
-                            "Exportable reports"
-                        ],
-                        
-                        examples: [
-                            { name: "Portfolio", url: "https://docs.google.com/document/d/1sQJ5MGpRsNOOk4wGjEfwhtPazSDWhymRm10g22CihhE/edit?tab=t.0" },
-                        ]
-                    }
-                },
-                
-                {
-                    id: "data_entry",
-                    title: "📝 DATA ENTRY",
-                    description: "Precise data entry and organization in Excel and Google Sheets",
-                    icon: "fas fa-keyboard",
-                    color: "#8c7ae6",
-                    type: "skill",
-                    details: {
-                        title: "Professional Data Entry",
-                        screenshot: "DATA ENTRY",
-                        description: "Accurate data entry and efficient organization in Excel, Google Sheets and other data processing tools.",
-                        technologies: ["Excel", "Google Sheets", "LaTeX"],
-                        features: [
-                            "Accurate and fast data entry",
-                            "Data organization",
-                            "Table creation",
-                            "Formulas and calculations",
-                            "Professional formatting"
-                        ]
-                    }
-                }
-            ],
-            discoveredNodes: [],
-            currentLanguage: "en",
-            translations: portfolioDataFR.translations
         };
 
         let portfolioData = portfolioDataFR; // Langue par défaut: français
@@ -1838,17 +1653,8 @@
 
         // Fonction pour changer de langue
         function switchLanguage() {
-            if (portfolioData === portfolioDataFR) {
-                portfolioData = portfolioDataEN;
-                langButton.innerHTML = '<i class="fas fa-globe"></i> FR';
-                portfolioData.currentLanguage = "en";
-            } else {
-                portfolioData = portfolioDataFR;
-                langButton.innerHTML = '<i class="fas fa-globe"></i> EN';
-                portfolioData.currentLanguage = "fr";
-            }
-            
-            updateUIForLanguage();
+            // Fonction désactivée - version française uniquement
+            console.log("Version française uniquement");
         }
 
         // Mettre à jour l'interface pour la langue
@@ -2018,7 +1824,7 @@
             apropos: () => {
                 const t = portfolioData.translations[portfolioData.currentLanguage].commands;
                 addConsoleLine("system", t.about);
-                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "Développeur full-stack spécialisé dans:" : "Full-stack developer specialized in:");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "Développeur full-stack spécialisé dans:" : "Full-stack Portfolio specialized in:");
                 addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Conversion Word/LaTeX professionnelle" : "- Professional Word/LaTeX conversion");
                 addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Design graphique créatif" : "- Creative graphic design");
                 addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Développement web (statique & dynamique)" : "- Web development (static & dynamic)");
@@ -2312,17 +2118,6 @@
                         else if (command === 'level' || command === 'niveau') actualCommand = 'niveau';
                         else if (command === 'menu') actualCommand = 'menu';
                         else if (command === 'email') actualCommand = 'email';
-                    } else {
-                        // Commandes en anglais
-                        if (command === 'help') actualCommand = 'aide';
-                        else if (command === 'projects') actualCommand = 'projets';
-                        else if (command === 'skills') actualCommand = 'competences';
-                        else if (command === 'contact') actualCommand = 'contact';
-                        else if (command === 'clear') actualCommand = 'effacer';
-                        else if (command === 'about') actualCommand = 'apropos';
-                        else if (command === 'level') actualCommand = 'niveau';
-                        else if (command === 'menu') actualCommand = 'menu';
-                        else if (command === 'email') actualCommand = 'email';
                     }
                     
                     if (commands[actualCommand]) {
@@ -2417,7 +2212,6 @@
         toggleSidebarCommand.addEventListener('click', toggleSidebar);
         sidebarToggle.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
-        langButton.addEventListener('click', switchLanguage);
         
         // Événements tactiles pour le toggle
         sidebarToggle.addEventListener('touchstart', (e) => {
