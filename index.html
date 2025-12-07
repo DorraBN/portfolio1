@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODEX DEVELOPER - Portfolio Jeu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-blue: #00a8ff;
+            --pixel-green: #4cd137;
+            --pixel-red: #e84118;
+            --pixel-yellow: #fbc531;
+            --pixel-purple: #9c88ff;
+            --terminal-black: #0f0f23;
+            --terminal-green: #00ff41;
+            --terminal-cyan: #0af;
+            --pixel-grid: rgba(0, 255, 65, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            image-rendering: pixelated;
+        }
+        
+        body {
+            font-family: 'Ubuntu Mono', monospace;
+            background: var(--terminal-black);
+            color: var(--terminal-green);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 168, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(156, 136, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, transparent 95%, var(--pixel-grid) 100%),
+                linear-gradient(to right, transparent 95%, var(--pixel-grid) 100%);
+            background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+        }
+        
+        .game-container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Barre latérale (pbarre) - Version mobile améliorée */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            height: 100%;
+            background: rgba(20, 20, 40, 0.98);
+            border-right: 3px solid var(--terminal-green);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+            backdrop-filter: blur(15px);
+            box-shadow: 5px 0 40px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar.open {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 2px solid var(--pixel-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        
+        .sidebar-title {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--terminal-green);
+            font-size: 0.9rem;
+            text-shadow: 0 0 10px var(--terminal-green);
+        }
+        
+        .close-sidebar {
+            background: var(--pixel-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(232, 65, 24, 0.4);
+        }
+        
+        .close-sidebar:hover, .close-sidebar:active {
+            transform: scale(1.1);
+            background: #ff3838;
+        }
+        
+        .sidebar-content {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        
+        .sidebar-node {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(30, 30, 50, 0.6));
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--pixel-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar-node:active {
+            transform: scale(0.98);
+        }
+        
+        .sidebar-node:hover {
+            transform: translateX(5px);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(40, 40, 60, 0.8));
+            border-color: var(--terminal-green);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .sidebar-node.active {
+            border-color: var(--pixel-blue);
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.2), rgba(0, 0, 0, 0.4));
+        }
+        
+        .sidebar-node-title {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+        
+        .sidebar-node-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .sidebar-node-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+        
+        /* Bouton pour ouvrir/fermer la sidebar - Mobile friendly */
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--pixel-purple), var(--pixel-blue));
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .sidebar-toggle:active {
+            transform: scale(0.95);
+        }
+        
+        .sidebar-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.5);
+        }
+        
+        .sidebar-toggle.open {
+            left: calc(85% - 40px);
+            transform: rotate(180deg);
+        }
+        
+        .sidebar-toggle.open:hover, .sidebar-toggle.open:active {
+            transform: rotate(180deg) scale(1.05);
+        }
+        
+        /* Overlay pour mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Écran de démarrage - Version mobile améliorée */
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .game-title {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin-bottom: 20px;
+            color: var(--terminal-green);
+            text-shadow: 
+                0 0 10px var(--terminal-green),
+                0 0 20px var(--terminal-green);
+            animation: glitch 3s infinite;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        .subtitle {
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            color: var(--pixel-blue);
+            margin-bottom: 40px;
+            font-family: 'Orbitron', sans-serif;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+        
+        .pixel-avatar {
+            width: clamp(100px, 40vw, 150px);
+            height: clamp(100px, 40vw, 150px);
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, var(--pixel-blue), var(--pixel-purple));
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid var(--terminal-green);
+            box-shadow: 
+                0 0 20px var(--terminal-green),
+                inset 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .pixel-avatar::before {
+            content: "DEV";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(2rem, 10vw, 3rem);
+            font-weight: bold;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .start-button {
+            padding: clamp(15px, 5vw, 20px) clamp(30px, 10vw, 50px);
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            background: var(--pixel-red);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 0 #c23616;
+            min-width: 200px;
+            max-width: 90%;
+        }
+        
+        .start-button:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #c23616;
+        }
+        
+        .controls-info {
+            margin-top: 30px;
+            color: var(--pixel-yellow);
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+            line-height: 1.8;
+            padding: 0 15px;
+            max-width: 500px;
+        }
+        
+        .controls-info p {
+            margin-bottom: 15px;
+        }
+        
+        /* Interface de jeu - Version mobile */
+        .game-interface {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .game-hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(15, 15, 35, 0.95);
+            border-bottom: 3px solid var(--terminal-green);
+            font-family: 'Orbitron', sans-serif;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .player-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--pixel-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .stat-value {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+        }
+        
+        .game-title-hud {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(0.8rem, 4vw, 1.5rem);
+            color: var(--terminal-green);
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        
+        .level-indicator {
+            color: var(--pixel-yellow);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        
+        /* Zone de jeu principale - Mobile */
+        .game-world {
+            padding-top: 80px;
+            padding-bottom: 80px;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+        
+        .game-world.with-sidebar {
+            transform: translateX(85%);
+            filter: brightness(0.3);
+            pointer-events: none;
+        }
+        
+        .game-map {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .map-node {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.95), rgba(20, 20, 35, 0.95));
+            border-radius: 20px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .map-node:active {
+            transform: translateY(2px);
+        }
+        
+        .map-node:hover {
+            transform: translateY(-8px);
+            border-color: var(--terminal-green);
+            box-shadow: 0 15px 40px rgba(0, 255, 65, 0.3);
+        }
+        
+        .node-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, var(--pixel-green), var(--pixel-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .node-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .node-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+        
+        .node-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--pixel-red);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: 0 4px 10px rgba(232, 65, 24, 0.3);
+        }
+        
+        /* Console terminal - Mobile */
+        .game-console {
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 3px solid var(--terminal-green);
+            padding: 20px;
+            font-family: 'Ubuntu Mono', monospace;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        
+        .console-header {
+            color: var(--terminal-green);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--terminal-green);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .console-output {
+            height: 180px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding-right: 10px;
+        }
+        
+        .console-line {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: var(--terminal-cyan);
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+        
+        .console-line.user {
+            color: var(--pixel-yellow);
+        }
+        
+        .console-line.system {
+            color: var(--terminal-green);
+        }
+        
+        .console-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-top: 1px solid var(--terminal-green);
+            padding: 15px 0;
+            color: var(--pixel-yellow);
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .console-input::placeholder {
+            color: rgba(0, 255, 65, 0.5);
+        }
+        
+        /* Fenêtre modale de projet - Mobile */
+        .project-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            background: rgba(20, 20, 40, 0.98);
+            border: 3px solid var(--terminal-green);
+            border-radius: 25px;
+            padding: 25px;
+            z-index: 1000;
+            display: none;
+            font-family: 'Orbitron', sans-serif;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--pixel-blue);
+            position: sticky;
+            top: 0;
+            background: rgba(20, 20, 40, 0.98);
+            z-index: 1;
+            padding-top: 10px;
+        }
+        
+        .modal-title {
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+        
+        .close-modal {
+            background: var(--pixel-red);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(232, 65, 24, 0.4);
+        }
+        
+        .close-modal:active {
+            transform: scale(0.95);
+            background: #ff3838;
+        }
+        
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .project-screenshot {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--pixel-purple), var(--pixel-blue));
+            border-radius: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-family: 'Press Start 2P', cursive;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .project-screenshot::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: scan 2s infinite linear;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(30, 30, 50, 0.6));
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid var(--pixel-green);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-title {
+            color: var(--pixel-yellow);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .info-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .info-content li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .info-content li:before {
+            content: "▸";
+            color: var(--terminal-green);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: linear-gradient(135deg, var(--pixel-blue), #2980b9);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
+        }
+        
+        .project-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-button {
+            padding: 18px 25px;
+            background: linear-gradient(135deg, var(--pixel-green), #27ae60);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(76, 209, 55, 0.4);
+        }
+        
+        .action-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 15px rgba(76, 209, 55, 0.4);
+        }
+        
+        .action-button.secondary {
+            background: transparent;
+            border: 2px solid var(--pixel-blue);
+            color: var(--pixel-blue);
+            box-shadow: 0 8px 25px rgba(0, 168, 255, 0.3);
+        }
+        
+        /* Footer du jeu - Mobile */
+        .game-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.95);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-top: 3px solid var(--terminal-green);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+        
+        .command-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .command {
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.3), rgba(156, 136, 255, 0.3));
+            border: 2px solid var(--pixel-blue);
+            color: var(--pixel-blue);
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            min-width: 90px;
+            justify-content: center;
+        }
+        
+        .command:active {
+            transform: scale(0.95);
+            background: var(--pixel-blue);
+            color: white;
+        }
+        
+        .quick-contact {
+            color: var(--pixel-yellow);
+            font-size: 0.9rem;
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .quick-contact a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-weight: bold;
+            word-break: break-all;
+        }
+        
+        /* Animation de chargement */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--terminal-black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .loading-text {
+            color: var(--terminal-green);
+            font-size: clamp(1rem, 5vw, 1.5rem);
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .loading-bar {
+            width: 80%;
+            max-width: 300px;
+            height: 25px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--terminal-green);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--terminal-green), var(--pixel-green));
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        /* Responsive - Optimisations mobiles */
+        @media (max-width: 768px) {
+            .game-world.with-sidebar {
+                transform: translateX(85%);
+            }
+            
+            .sidebar-toggle.open {
+                left: calc(85% - 40px);
+            }
+            
+            .game-map {
+                grid-template-columns: 1fr;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .map-node {
+                padding: 20px;
+                min-height: 180px;
+            }
+            
+            .node-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .node-title {
+                font-size: 1.1rem;
+            }
+            
+            .node-desc {
+                font-size: 0.85rem;
+            }
+            
+            .player-stats {
+                display: none; /* Cacher les stats sur mobile pour économiser de l'espace */
+            }
+            
+            .level-indicator {
+                display: none;
+            }
+            
+            .game-title-hud {
+                font-size: 0.9rem;
+                margin: 0;
+            }
+            
+            .game-hud {
+                padding: 12px 15px;
+                justify-content: center;
+            }
+            
+            .command-list {
+                gap: 8px;
+            }
+            
+            .command {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                min-width: auto;
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .project-modal {
+                width: 95%;
+                padding: 20px;
+                max-height: 90vh;
+            }
+            
+            .modal-header {
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .project-screenshot {
+                height: 180px;
+                font-size: 1.2rem;
+            }
+            
+            .action-button {
+                padding: 16px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 90%;
+            }
+            
+            .game-world.with-sidebar {
+                transform: translateX(90%);
+            }
+            
+            .sidebar-toggle.open {
+                left: calc(90% - 40px);
+            }
+            
+            .game-map {
+                padding: 10px;
+            }
+            
+            .map-node {
+                padding: 15px;
+                min-height: 160px;
+                border-radius: 15px;
+            }
+            
+            .node-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+                border-radius: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .node-title {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .node-desc {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            .game-footer {
+                padding: 12px 15px;
+                gap: 12px;
+            }
+            
+            .command {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+                gap: 5px;
+            }
+            
+            .quick-contact {
+                font-size: 0.8rem;
+            }
+            
+            .project-modal {
+                width: 98%;
+                padding: 15px;
+                border-radius: 20px;
+            }
+            
+            .modal-title {
+                font-size: 1rem;
+            }
+            
+            .close-modal {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5rem;
+            }
+            
+            .project-screenshot {
+                height: 150px;
+                font-size: 1rem;
+                border-radius: 15px;
+            }
+            
+            .info-box {
+                padding: 15px;
+                border-radius: 12px;
+            }
+            
+            .info-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .info-content {
+                font-size: 0.9rem;
+            }
+            
+            .tech-tag {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .action-button {
+                padding: 14px 18px;
+                font-size: 0.9rem;
+                border-radius: 12px;
+            }
+            
+            .sidebar-node {
+                padding: 15px;
+                margin-bottom: 12px;
+                border-radius: 10px;
+            }
+            
+            .sidebar-node-title {
+                font-size: 0.9rem;
+            }
+            
+            .sidebar-node-desc {
+                font-size: 0.8rem;
+            }
+            
+            .sidebar-node-icon {
+                width: 25px;
+                height: 25px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar {
+                width: 320px;
+                left: -320px;
+                top: 100px;
+                height: calc(100% - 180px);
+                border-radius: 0 15px 15px 0;
+            }
+            
+            .sidebar.open {
+                left: 0;
+            }
+            
+            .game-world.with-sidebar {
+                transform: translateX(320px);
+                width: calc(100% - 320px);
+            }
+            
+            .sidebar-toggle {
+                top: 120px;
+                left: 20px;
+            }
+            
+            .sidebar-toggle.open {
+                left: 340px;
+            }
+            
+            .game-world {
+                padding-top: 100px;
+                padding-bottom: 100px;
+                flex-direction: row;
+            }
+            
+            .game-map {
+                flex: 3;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .game-console {
+                flex: 1;
+                border-left: 3px solid var(--terminal-green);
+                border-top: none;
+                max-height: calc(100vh - 180px);
+            }
+            
+            .game-footer {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+            }
+            
+            .command-list {
+                justify-content: flex-start;
+            }
+            
+            .quick-contact {
+                border-top: none;
+                padding-top: 0;
+                text-align: right;
+            }
+        }
+        
+        /* Mode portrait/landscape détection */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .game-hud {
+                padding: 10px 15px;
+            }
+            
+            .game-world {
+                padding-top: 70px;
+                padding-bottom: 70px;
+            }
+            
+            .game-footer {
+                padding: 10px 15px;
+            }
+            
+            .map-node {
+                min-height: 140px;
+                padding: 15px;
+            }
+            
+            .node-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .node-title {
+                font-size: 1rem;
+                margin-bottom: 5px;
+            }
+            
+            .node-desc {
+                font-size: 0.8rem;
+            }
+            
+            .project-modal {
+                max-height: 95vh;
+                padding: 20px;
+            }
+            
+            .project-screenshot {
+                height: 150px;
+            }
+        }
+        
+        /* Améliorations tactiles */
+        @media (hover: none) and (pointer: coarse) {
+            .map-node:hover {
+                transform: none;
+            }
+            
+            .sidebar-node:hover {
+                transform: none;
+            }
+            
+            .command:hover {
+                background: rgba(0, 168, 255, 0.2);
+                color: var(--pixel-blue);
+            }
+            
+            .action-button:hover {
+                transform: none;
+            }
+            
+            .sidebar-toggle:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Écran de démarrage -->
+    <div class="start-screen" id="startScreen">
+        <div class="pixel-avatar"></div>
+        <h1 class="game-title">CODEX DEVELOPER</h1>
+        <p class="subtitle">PORTFOLIO INTERACTIF - NIVEAU PRO</p>
+        <button class="start-button" id="startButton">
+            <i class="fas fa-play"></i> COMMENCER LA PARTIE
+        </button>
+        <div class="controls-info">
+            <p>🎮 <strong>CONTROLES :</strong> Touchez les nœuds pour explorer</p>
+            <p>⌨️ <strong>CONSOLE :</strong> Tapez des commandes pour interagir</p>
+            <p>🌟 <strong>OBJECTIF :</strong> Découvrir tous les projets et compétences</p>
+            <p>📱 <strong>OPTIMISÉ MOBILE :</strong> Interface tactile fluide</p>
+            <p>👆 <strong>MENU :</strong> Touchez <i class="fas fa-bars"></i> pour naviguer</p>
+        </div>
+    </div>
+    
+    <!-- Écran de chargement -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">CHARGEMENT DU PORTFOLIO...</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+    </div>
+    
+    <!-- Interface principale du jeu -->
+    <div class="game-container">
+        <!-- Overlay pour mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Barre latérale (pbarre) -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">MENU DE NAVIGATION</h3>
+                <button class="close-sidebar" id="closeSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+                <!-- Les nœuds seront ajoutés dynamiquement ici -->
+            </div>
+        </div>
+        
+        <!-- Bouton pour ouvrir/fermer la sidebar -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="game-interface" id="gameInterface">
+            <!-- HUD du jeu -->
+            <div class="game-hud">
+                <div class="player-stats">
+                    <div class="stat">
+                        <div class="stat-icon"><i class="fas fa-code"></i></div>
+                        <div class="stat-value">NIVEAU <span id="playerLevel">15</span></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="stat-value"><span id="xpPoints">2470</span> XP</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                        <div class="stat-value">PROJETS: <span id="projectsCount">8</span>/12</div>
+                    </div>
+                </div>
+                
+                <div class="game-title-hud">CODEX DEVELOPER</div>
+                
+                <div class="level-indicator">
+                    <i class="fas fa-map-marker-alt"></i> ZONE: PORTFOLIO
+                </div>
+            </div>
+            
+            <!-- Monde du jeu -->
+            <div class="game-world" id="gameWorld">
+                <!-- Carte des projets/compétences -->
+                <div class="game-map" id="gameMap">
+                    <!-- Les nœuds seront ajoutés dynamiquement -->
+                </div>
+                
+                <!-- Console terminal -->
+                <div class="game-console">
+                    <div class="console-header">
+                        <i class="fas fa-terminal"></i> TERMINAL DE COMMANDES
+                    </div>
+                    <div class="console-output" id="consoleOutput">
+                        <div class="console-line system">> Système de portfolio Codex Developer initialisé</div>
+                        <div class="console-line system">> Bienvenue dans l'interface interactive</div>
+                        <div class="console-line system">> Tapez 'help' pour la liste des commandes</div>
+                        <div class="console-line system">> Touchez un nœud sur la carte pour commencer</div>
+                        <div class="console-line system">> Cliquez sur <i class="fas fa-bars"></i> pour ouvrir le menu latéral</div>
+                    </div>
+                    <input type="text" class="console-input" id="consoleInput" placeholder="> Tapez une commande...">
+                </div>
+            </div>
+            
+            <!-- Footer avec commandes rapides -->
+            <div class="game-footer">
+                <div class="command-list">
+                    <div class="command" data-command="help">
+                        <i class="fas fa-question-circle"></i> AIDE
+                    </div>
+                    <div class="command" data-command="projects">
+                        <i class="fas fa-folder-open"></i> PROJETS
+                    </div>
+                    <div class="command" data-command="skills">
+                        <i class="fas fa-cogs"></i> COMPÉTENCES
+                    </div>
+                    <div class="command" data-command="contact">
+                        <i class="fas fa-envelope"></i> CONTACT
+                    </div>
+                    <div class="command" data-command="clear">
+                        <i class="fas fa-eraser"></i> EFFACER
+                    </div>
+                    <div class="command" id="toggleSidebarCommand">
+                        <i class="fas fa-bars"></i> MENU
+                    </div>
+                </div>
+                <div class="quick-contact">
+                    <i class="fas fa-envelope"></i> 
+                    <a href="mailto:digi.freework24@gmail.com">digi.freework24@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modale de projet -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">PROJET</h2>
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-content" id="modalContent">
+            <!-- Contenu chargé dynamiquement -->
+        </div>
+    </div>
+
+    <script>
+        // Animation de chargement
+        window.addEventListener("load", () => {
+            const loadingScreen = document.getElementById("loadingScreen");
+            const progress = document.getElementById("loadingProgress");
+
+            let p = 0;
+            let interval = setInterval(() => {
+                p += 5;
+                progress.style.width = p + "%";
+
+                if (p >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = "0";
+                        setTimeout(() => {
+                            loadingScreen.style.display = "none";
+                        }, 500);
+                    }, 300);
+                }
+            }, 80);
+        });
+
+        // Données du portfolio
+        const portfolioData = {
+            nodes: [
+                {
+                    id: "conversion",
+                    title: "🔄 CONVERSION WORD/LATEX",
+                    description: "Expert en conversion de documents complexes avec préservation parfaite des formules mathématiques et références",
+                    icon: "fas fa-exchange-alt",
+                    color: "#00a8ff",
+                    type: "skill",
+                    details: {
+                        title: "Conversion Professionnelle Word ↔ LaTeX",
+                        screenshot: "DOCUMENTS TECHNIQUES",
+                        description: "Transformation précise de documents académiques, thèses, articles scientifiques et rapports techniques avec gestion avancée des équations mathématiques, tableaux complexes et références bibliographiques.",
+                        technologies: ["Microsoft Word", "LaTeX", "Pandoc", "Overleaf", "BibTeX"],
+                        features: [
+                            "Conversion préservant la mise en page originale",
+                            "Gestion des équations mathématiques complexes",
+                            "Références bibliographiques automatiques",
+                            "Tableaux et figures optimisés",
+                            "Support multilingue"
+                        ],
+                        link: "#contact"
+                    }
+                },
+                {
+                    id: "design",
+                    title: "🎨 DESIGN GRAPHIQUE",
+                    description: "Création d'identités visuelles, logos, maquettes et supports marketing percutants",
+                    icon: "fas fa-paint-brush",
+                    color: "#9c88ff",
+                    type: "skill",
+                    details: {
+                        title: "Design Graphique & Identité Visuelle",
+                        screenshot: "PROJETS DESIGN",
+                        description: "Conception d'identités visuelles complètes, logos uniques, maquettes web/mobile, infographies et supports de communication qui marquent les esprits.",
+                        technologies: ["Adobe Creative Suite", "Figma", "Canva", "Blender", "After Effects"],
+                        features: [
+                            "Identité visuelle complète",
+                            "Logos mémorables et uniques",
+                            "Maquettes web et mobile",
+                            "Infographies et visualisations",
+                            "Supports print et digital"
+                        ],
+                        link: "#contact"
+                    }
+                },
+                {
+                    id: "static",
+                    title: "🌐 SITES STATIQUES",
+                    description: "Sites web ultra-rapides, sécurisés et optimisés pour le SEO",
+                    icon: "fas fa-file-code",
+                    color: "#4cd137",
+                    type: "project",
+                    details: {
+                        title: "Développement de Sites Statiques",
+                        screenshot: "SITES WEB STATIQUES",
+                        description: "Création de sites vitrines, portfolios et landing pages performants avec technologies modernes pour une vitesse de chargement optimale et un excellent référencement.",
+                        technologies: ["HTML5", "CSS3", "JavaScript", "GSAP", "Three.js"],
+                        features: [
+                            "Temps de chargement < 2 secondes",
+                            "Design responsive et mobile-first",
+                            "SEO optimisé",
+                            "Animations fluides",
+                            "Hébergement gratuit possible"
+                        ],
+                        link: "https://static-example.vercel.app"
+                    }
+                },
+                {
+                    id: "dynamic",
+                    title: "⚡ APPLICATIONS DYNAMIQUES",
+                    description: "Applications web interactives avec bases de données et fonctionnalités avancées",
+                    icon: "fas fa-bolt",
+                    color: "#fbc531",
+                    type: "project",
+                    details: {
+                        title: "Applications Web Dynamiques",
+                        screenshot: "APPLICATIONS WEB",
+                        description: "Développement d'applications web complètes avec back-end, bases de données, authentification utilisateur et interfaces interactives.",
+                        technologies: ["React", "Node.js", "MongoDB", "Express", "Firebase"],
+                        features: [
+                            "Applications full-stack",
+                            "Bases de données sécurisées",
+                            "Systèmes d'authentification",
+                            "APIs RESTful",
+                            "Déploiement cloud"
+                        ],
+                        link: "https://dynamic-app.example.com"
+                    }
+                },
+                {
+                    id: "powerbi",
+                    title: "📊 POWER BI & ANALYSE",
+                    description: "Tableaux de bord interactifs et analyses de données pour prise de décision",
+                    icon: "fas fa-chart-line",
+                    color: "#e84118",
+                    type: "skill",
+                    details: {
+                        title: "Analyses de Données & Dashboards Power BI",
+                        screenshot: "DASHBOARDS INTERACTIFS",
+                        description: "Création de tableaux de bord Power BI interactifs, analyses de données complexes et visualisations pour transformer vos données en insights actionnables.",
+                        technologies: ["Power BI", "DAX", "Power Query", "SQL", "Python"],
+                        features: [
+                            "Dashboards interactifs et personnalisables",
+                            "Connecteurs multiples (SQL, Excel, APIs)",
+                            "Visualisations avancées",
+                            "Actualisation automatique",
+                            "Rapports exportables"
+                        ],
+                        link: "#contact"
+                    }
+                },
+                {
+                    id: "portfolio",
+                    title: "🎮 PORTFOLIO JEU",
+                    description: "Ce portfolio interactif sous forme de jeu vidéo",
+                    icon: "fas fa-gamepad",
+                    color: "#00ff41",
+                    type: "project",
+                    details: {
+                        title: "Portfolio Interactif Jeu Vidéo",
+                        screenshot: "PORTFOLIO JEU",
+                        description: "Conception et développement de ce portfolio unique sous forme de jeu vidéo interactif, combinant design créatif et développement technique avancé.",
+                        technologies: ["HTML5", "CSS3", "JavaScript", "Canvas API", "GSAP"],
+                        features: [
+                            "Interface jeu vidéo unique",
+                            "Animations fluides et interactives",
+                            "Système de progression",
+                            "Console de commandes fonctionnelle",
+                            "Design pixel art moderne"
+                        ],
+                        link: "#"
+                    }
+                }
+            ],
+            discoveredNodes: []
+        };
+
+        // Éléments DOM
+        const startScreen = document.getElementById('startScreen');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const gameInterface = document.getElementById('gameInterface');
+        const startButton = document.getElementById('startButton');
+        const gameMap = document.getElementById('gameMap');
+        const consoleOutput = document.getElementById('consoleOutput');
+        const consoleInput = document.getElementById('consoleInput');
+        const projectModal = document.getElementById('projectModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const playerLevel = document.getElementById('playerLevel');
+        const xpPoints = document.getElementById('xpPoints');
+        const projectsCount = document.getElementById('projectsCount');
+        
+        // Éléments sidebar
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebarContent = document.getElementById('sidebarContent');
+        const gameWorld = document.getElementById('gameWorld');
+        const toggleSidebarCommand = document.getElementById('toggleSidebarCommand');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Fonction pour basculer la sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarToggle.classList.toggle('open');
+            gameWorld.classList.toggle('with-sidebar');
+            sidebarOverlay.classList.toggle('active');
+            
+            // Changer l'icône
+            const icon = sidebarToggle.querySelector('i');
+            if (sidebar.classList.contains('open')) {
+                icon.className = 'fas fa-times';
+                addConsoleLine("system", "> Menu de navigation ouvert");
+                document.body.style.overflow = 'hidden';
+            } else {
+                icon.className = 'fas fa-bars';
+                addConsoleLine("system", "> Menu de navigation fermé");
+                document.body.style.overflow = 'auto';
+            }
+            
+            playSound('click');
+        }
+
+        // Initialiser la sidebar avec les nœuds
+        function initSidebar() {
+            sidebarContent.innerHTML = '';
+            
+            portfolioData.nodes.forEach((node, index) => {
+                const nodeElement = document.createElement('div');
+                nodeElement.className = 'sidebar-node';
+                nodeElement.dataset.nodeId = node.id;
+                
+                nodeElement.innerHTML = `
+                    <div class="sidebar-node-title">
+                        <div class="sidebar-node-icon" style="background: ${node.color}">
+                            <i class="${node.icon}"></i>
+                        </div>
+                        ${node.title}
+                    </div>
+                    <p class="sidebar-node-desc">${node.description}</p>
+                `;
+                
+                // Événement tactile optimisé pour mobile
+                nodeElement.addEventListener('touchstart', (e) => {
+                    e.currentTarget.style.transform = 'scale(0.98)';
+                });
+                
+                nodeElement.addEventListener('touchend', (e) => {
+                    e.currentTarget.style.transform = '';
+                    const targetNode = portfolioData.nodes.find(n => n.id === node.id);
+                    if (targetNode) {
+                        openNode(targetNode);
+                        if (window.innerWidth <= 768) {
+                            toggleSidebar();
+                        }
+                    }
+                });
+                
+                // Événement clic pour desktop
+                nodeElement.addEventListener('click', (e) => {
+                    const targetNode = portfolioData.nodes.find(n => n.id === node.id);
+                    if (targetNode) {
+                        openNode(targetNode);
+                        if (window.innerWidth <= 768) {
+                            toggleSidebar();
+                        }
+                    }
+                });
+                
+                sidebarContent.appendChild(nodeElement);
+                
+                // Animation d'apparition
+                nodeElement.style.opacity = '0';
+                nodeElement.style.transform = 'translateX(-20px)';
+                
+                setTimeout(() => {
+                    nodeElement.style.transition = 'all 0.5s ease';
+                    nodeElement.style.opacity = '1';
+                    nodeElement.style.transform = 'translateX(0)';
+                }, index * 100);
+            });
+        }
+
+        // Commandes du terminal
+        const commands = {
+            help: () => {
+                addConsoleLine("system", "=== COMMANDES DISPONIBLES ===");
+                addConsoleLine("system", "help - Afficher cette aide");
+                addConsoleLine("system", "projects - Lister tous les projets");
+                addConsoleLine("system", "skills - Afficher mes compétences");
+                addConsoleLine("system", "contact - Informations de contact");
+                addConsoleLine("system", "clear - Effacer la console");
+                addConsoleLine("system", "about - À propos de moi");
+                addConsoleLine("system", "email - Envoyer un email");
+                addConsoleLine("system", "level - Voir mon niveau");
+                addConsoleLine("system", "menu - Ouvrir/fermer le menu latéral");
+            },
+            projects: () => {
+                addConsoleLine("system", "=== MES PROJETS ===");
+                portfolioData.nodes.filter(node => node.type === 'project').forEach(project => {
+                    addConsoleLine("system", `• ${project.title} - ${project.description}`);
+                });
+            },
+            skills: () => {
+                addConsoleLine("system", "=== MES COMPÉTENCES ===");
+                portfolioData.nodes.filter(node => node.type === 'skill').forEach(skill => {
+                    addConsoleLine("system", `• ${skill.title} - ${skill.description}`);
+                });
+            },
+            contact: () => {
+                addConsoleLine("system", "=== CONTACT ===");
+                addConsoleLine("system", "📧 Email: digi.freework24@gmail.com");
+                addConsoleLine("system", "💼 Disponible pour des projets freelance");
+                addConsoleLine("system", "⚡ Réponse sous 24h");
+            },
+            clear: () => {
+                consoleOutput.innerHTML = '';
+                addConsoleLine("system", "Console effacée. Tapez 'help' pour les commandes.");
+            },
+            about: () => {
+                addConsoleLine("system", "=== À PROPOS ===");
+                addConsoleLine("system", "Développeur full-stack spécialisé dans:");
+                addConsoleLine("system", "- Conversion Word/LaTeX professionnelle");
+                addConsoleLine("system", "- Design graphique créatif");
+                addConsoleLine("system", "- Développement web (statique & dynamique)");
+                addConsoleLine("system", "- Analyse de données & Power BI");
+                addConsoleLine("system", "Passionné par la création d'expériences digitales uniques!");
+            },
+            email: () => {
+                window.open('mailto:digi.freework24@gmail.com?subject=Demande%20de%20devis&body=Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?');
+                addConsoleLine("system", "Client email ouvert. Rédigez votre message!");
+            },
+            level: () => {
+                addConsoleLine("system", `Niveau actuel: ${playerLevel.textContent}`);
+                addConsoleLine("system", `Points d'expérience: ${xpPoints.textContent}`);
+                addConsoleLine("system", `Projets découverts: ${portfolioData.discoveredNodes.length}/${portfolioData.nodes.length}`);
+            },
+            menu: () => {
+                toggleSidebar();
+                addConsoleLine("system", "> Menu de navigation basculé");
+            }
+        };
+
+        // Initialisation du jeu
+        function initGame() {
+            startScreen.style.display = 'none';
+            loadingScreen.style.display = 'none';
+            gameInterface.style.display = 'block';
+            
+            initMap();
+            initSidebar();
+            
+            addConsoleLine("system", "> Portfolio interactif chargé avec succès!");
+            addConsoleLine("system", "> Explorez les nœuds ou tapez 'help'");
+            addConsoleLine("system", "> Touchez le bouton MENU pour ouvrir la navigation latérale");
+            
+            projectsCount.textContent = "0";
+            playerLevel.textContent = "15";
+            xpPoints.textContent = "2000";
+            
+            // Effet de particules pour le jeu
+            createGameParticles();
+            
+            // Adapter l'interface à la taille d'écran
+            adaptToScreenSize();
+        }
+
+        // Adapter l'interface à la taille d'écran
+        function adaptToScreenSize() {
+            const isMobile = window.innerWidth <= 768;
+            const isLandscape = window.innerWidth > window.innerHeight;
+            
+            if (isMobile && isLandscape) {
+                // Mode paysage mobile - ajustements
+                document.querySelector('.game-hud').style.padding = '8px 15px';
+                document.querySelector('.game-world').style.paddingTop = '60px';
+                document.querySelector('.game-world').style.paddingBottom = '60px';
+            }
+        }
+
+        // Initialisation de la carte
+        function initMap() {
+            gameMap.innerHTML = '';
+            
+            portfolioData.nodes.forEach((node, index) => {
+                const nodeElement = document.createElement('div');
+                nodeElement.className = 'map-node';
+                nodeElement.dataset.nodeId = node.id;
+                
+                nodeElement.style.opacity = '0';
+                nodeElement.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    nodeElement.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    nodeElement.style.opacity = '1';
+                    nodeElement.style.transform = 'translateY(0)';
+                }, index * 150);
+                
+                nodeElement.innerHTML = `
+                    <div class="node-icon" style="background: linear-gradient(135deg, ${node.color}, #2c3e50)">
+                        <i class="${node.icon}"></i>
+                    </div>
+                    <h3 class="node-title">${node.title}</h3>
+                    <p class="node-desc">${node.description}</p>
+                    ${node.type === 'project' ? '<span class="node-badge">PROJET</span>' : '<span class="node-badge">COMPÉTENCE</span>'}
+                `;
+                
+                // Événements tactiles optimisés
+                nodeElement.addEventListener('touchstart', (e) => {
+                    e.currentTarget.style.transform = 'scale(0.98) translateY(0)';
+                });
+                
+                nodeElement.addEventListener('touchend', (e) => {
+                    e.currentTarget.style.transform = '';
+                    setTimeout(() => openNode(node), 100);
+                });
+                
+                // Événement clic pour desktop
+                nodeElement.addEventListener('click', () => openNode(node));
+                
+                gameMap.appendChild(nodeElement);
+            });
+        }
+
+        // Ouvrir un nœud
+        function openNode(node) {
+            if (!portfolioData.discoveredNodes.includes(node.id)) {
+                portfolioData.discoveredNodes.push(node.id);
+                
+                const currentXP = parseInt(xpPoints.textContent);
+                const xpGain = node.type === 'project' ? 250 : 150;
+                xpPoints.textContent = currentXP + xpGain;
+                
+                projectsCount.textContent = portfolioData.discoveredNodes.length;
+                
+                const newLevel = Math.floor(portfolioData.discoveredNodes.length / 2) + 15;
+                playerLevel.textContent = newLevel;
+                
+                addConsoleLine("system", `Nouveau nœud découvert: ${node.title} (+${xpGain} XP)`);
+                
+                // Mettre à jour le statut dans la sidebar
+                updateSidebarNode(node.id);
+            }
+            
+            openModal(node);
+        }
+
+        // Mettre à jour le nœud dans la sidebar
+        function updateSidebarNode(nodeId) {
+            const sidebarNode = document.querySelector(`.sidebar-node[data-node-id="${nodeId}"]`);
+            if (sidebarNode) {
+                sidebarNode.classList.add('active');
+                sidebarNode.innerHTML += `<div style="margin-top: 10px; color: #00ff41; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;"><i class="fas fa-check-circle"></i> Découvert</div>`;
+            }
+        }
+
+        // Ouvrir la modale
+        function openModal(node) {
+            modalTitle.textContent = node.details.title;
+            
+            modalContent.innerHTML = `
+                <div class="project-screenshot" style="background: linear-gradient(135deg, ${node.color}, #2c3e50)">
+                    ${node.details.screenshot}
+                </div>
+                
+                <div class="project-info">
+                    <div class="info-box">
+                        <h3 class="info-title"><i class="fas fa-info-circle"></i> DESCRIPTION</h3>
+                        <p class="info-content">${node.details.description}</p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h3 class="info-title"><i class="fas fa-list-check"></i> FONCTIONNALITÉS</h3>
+                        <ul class="info-content">
+                            ${node.details.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h3 class="info-title"><i class="fas fa-code"></i> TECHNOLOGIES</h3>
+                        <div class="tech-stack">
+                            ${node.details.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-actions">
+                    ${node.details.link === '#contact' ? 
+                        `<button class="action-button" onclick="sendEmail()">
+                            <i class="fas fa-envelope"></i> DEMANDER UN DEVIS
+                        </button>` : 
+                        `<button class="action-button" onclick="window.open('${node.details.link}', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> VISITER LE PROJET
+                        </button>`
+                    }
+                    <button class="action-button secondary" onclick="addConsoleLine('user', '> Plus d\\'infos sur ${node.title}')">
+                        <i class="fas fa-terminal"></i> COMMANDE TERMINAL
+                    </button>
+                </div>
+            `;
+            
+            projectModal.style.display = 'block';
+            
+            projectModal.style.opacity = '0';
+            projectModal.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            
+            setTimeout(() => {
+                projectModal.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                projectModal.style.opacity = '1';
+                projectModal.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 10);
+            
+            // Empêcher le scroll du body quand la modale est ouverte
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fermer la modale
+        function closeProjectModal() {
+            projectModal.style.opacity = '0';
+            projectModal.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            
+            setTimeout(() => {
+                projectModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
+
+        // Ajouter une ligne à la console
+        function addConsoleLine(type, text) {
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = text;
+            consoleOutput.appendChild(line);
+            
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        // Gestion de la console
+        consoleInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = consoleInput.value.trim().toLowerCase();
+                consoleInput.value = '';
+                
+                if (command) {
+                    addConsoleLine("user", `> ${command}`);
+                    
+                    if (commands[command]) {
+                        commands[command]();
+                    } else {
+                        addConsoleLine("system", `Commande inconnue: ${command}. Tapez 'help' pour la liste des commandes.`);
+                    }
+                }
+            }
+        });
+
+        // Focus sur l'input de la console quand on touche le terminal
+        document.querySelector('.game-console').addEventListener('touchstart', () => {
+            if (window.innerWidth <= 768) {
+                consoleInput.focus();
+                // Sur mobile, ouvrir le clavier virtuel
+                setTimeout(() => {
+                    consoleInput.focus();
+                }, 100);
+            }
+        });
+
+        // Commandes rapides avec événements tactiles
+        document.querySelectorAll('.command').forEach(button => {
+            // Événement tactile
+            button.addEventListener('touchstart', (e) => {
+                e.currentTarget.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('touchend', (e) => {
+                e.currentTarget.style.transform = '';
+                const command = e.currentTarget.dataset.command;
+                if (command) {
+                    addConsoleLine("user", `> ${command}`);
+                    if (commands[command]) {
+                        setTimeout(() => commands[command](), 100);
+                    }
+                }
+            });
+            
+            // Événement clic pour desktop
+            button.addEventListener('click', (e) => {
+                const command = e.currentTarget.dataset.command;
+                if (command) {
+                    addConsoleLine("user", `> ${command}`);
+                    if (commands[command]) {
+                        commands[command]();
+                    }
+                }
+            });
+        });
+
+        // Fonction pour envoyer un email
+        window.sendEmail = function() {
+            window.open('mailto:digi.freework24@gmail.com?subject=Demande%20de%20devis%20portfolio&body=Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services%20de%20${modalTitle.textContent}.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?');
+            addConsoleLine("system", "> Email de contact ouvert. Rédigez votre demande!");
+            closeProjectModal();
+        };
+
+        // Événements avec gestion tactile
+        startButton.addEventListener('touchstart', (e) => {
+            e.currentTarget.style.transform = 'translateY(5px)';
+            e.currentTarget.style.boxShadow = '0 5px 0 #c23616';
+        });
+        
+        startButton.addEventListener('touchend', (e) => {
+            e.currentTarget.style.transform = '';
+            e.currentTarget.style.boxShadow = '0 10px 0 #c23616';
+            setTimeout(() => initGame(), 100);
+        });
+        
+        startButton.addEventListener('click', initGame);
+        
+        closeModal.addEventListener('click', closeProjectModal);
+        closeModal.addEventListener('touchstart', (e) => {
+            e.currentTarget.style.transform = 'scale(0.9)';
+        });
+        closeModal.addEventListener('touchend', (e) => {
+            e.currentTarget.style.transform = '';
+        });
+        
+        closeSidebar.addEventListener('click', toggleSidebar);
+        toggleSidebarCommand.addEventListener('click', toggleSidebar);
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+        
+        // Événements tactiles pour le toggle
+        sidebarToggle.addEventListener('touchstart', (e) => {
+            e.currentTarget.style.transform = 'scale(0.95)';
+        });
+        
+        sidebarToggle.addEventListener('touchend', (e) => {
+            e.currentTarget.style.transform = '';
+        });
+
+        // Fermer la modale en cliquant en dehors
+        window.addEventListener('click', (e) => {
+            if (e.target === projectModal) {
+                closeProjectModal();
+            }
+        });
+
+        // Fermer la modale avec Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && projectModal.style.display === 'block') {
+                closeProjectModal();
+            }
+        });
+
+        // Gestion du redimensionnement
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            adaptToScreenSize();
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.querySelector('.game-title');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+            
+            createStartParticles();
+            
+            // Détection du mode tactile
+            if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                document.body.classList.add('touch-device');
+            }
+        });
+
+        // Effet de particules pour l'écran de démarrage
+        function createStartParticles() {
+            const container = document.querySelector('.start-screen');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = Math.random() > 0.5 ? '#00ff41' : '#00a8ff';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.4 + 0.2;
+                particle.style.boxShadow = `0 0 8px ${particle.style.background}`;
+                particle.style.zIndex = '1';
+                
+                container.appendChild(particle);
+                
+                animateParticle(particle);
+            }
+        }
+
+        // Effet de particules pour le jeu
+        function createGameParticles() {
+            const container = document.querySelector('.game-container');
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = Math.random() * 2 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = Math.random() > 0.5 ? '#00a8ff' : '#9c88ff';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.opacity = Math.random() * 0.2 + 0.1;
+                particle.style.zIndex = '1';
+                particle.style.pointerEvents = 'none';
+                
+                container.appendChild(particle);
+                
+                animateGameParticle(particle);
+            }
+        }
+
+        function animateParticle(particle) {
+            let x = parseFloat(particle.style.left);
+            let y = parseFloat(particle.style.top);
+            let xSpeed = (Math.random() - 0.5) * 0.2;
+            let ySpeed = (Math.random() - 0.5) * 0.2;
+            
+            function move() {
+                x += xSpeed;
+                y += ySpeed;
+                
+                if (x <= 0 || x >= 100) xSpeed *= -1;
+                if (y <= 0 || y >= 100) ySpeed *= -1;
+                
+                particle.style.left = `${x}vw`;
+                particle.style.top = `${y}vh`;
+                
+                requestAnimationFrame(move);
+            }
+            
+            move();
+        }
+
+        function animateGameParticle(particle) {
+            let y = parseFloat(particle.style.top);
+            let speed = Math.random() * 0.3 + 0.2;
+            
+            function move() {
+                y -= speed;
+                
+                if (y <= -5) {
+                    y = 105;
+                    particle.style.left = Math.random() * 100 + 'vw';
+                }
+                
+                particle.style.top = `${y}vh`;
+                
+                requestAnimationFrame(move);
+            }
+            
+            move();
+        }
+
+        // Effets sonores
+        function playSound(type) {
+            if (type === 'click') {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 600;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                } catch (e) {
+                    console.log("Audio context non supporté");
+                }
+            }
+        }
+
+        // Ajouter des effets sonores aux clics
+        document.querySelectorAll('button, .command, .map-node, .sidebar-node').forEach(element => {
+            element.addEventListener('click', () => playSound('click'));
+            element.addEventListener('touchstart', () => playSound('click'));
+        });
+    </script>
+</body>
+</html>
