@@ -144,11 +144,12 @@
             background: linear-gradient(135deg, rgba(0, 168, 255, 0.2), rgba(0, 0, 0, 0.4));
         }
         
+        /* CHANGEMENT : Police Ubuntu Mono pour le contenu de la sidebar */
         .sidebar-node-title {
-            color: white;
+            color: var(--terminal-green);
             font-size: 1rem;
             margin-bottom: 8px;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Ubuntu Mono', monospace;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -156,9 +157,10 @@
         }
         
         .sidebar-node-desc {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--terminal-cyan);
             font-size: 0.85rem;
             line-height: 1.4;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .sidebar-node-icon {
@@ -274,7 +276,7 @@
             font-size: clamp(0.9rem, 4vw, 1.2rem);
             color: var(--pixel-blue);
             margin-bottom: 40px;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Ubuntu Mono', monospace;
             padding: 0 20px;
             line-height: 1.5;
         }
@@ -335,6 +337,7 @@
             line-height: 1.8;
             padding: 0 15px;
             max-width: 500px;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .controls-info p {
@@ -361,7 +364,7 @@
             z-index: 100;
             background: rgba(15, 15, 35, 0.95);
             border-bottom: 3px solid var(--terminal-green);
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Ubuntu Mono', monospace;
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
@@ -396,6 +399,7 @@
             font-weight: bold;
             color: white;
             white-space: nowrap;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .game-title-hud {
@@ -411,6 +415,7 @@
             color: var(--pixel-yellow);
             font-size: 0.8rem;
             white-space: nowrap;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         /* Zone de jeu principale - Mobile */
@@ -453,7 +458,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-family: 'Orbitron', sans-serif;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
@@ -481,17 +485,20 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
+        /* CHANGEMENT : Police Ubuntu Mono pour les nœuds */
         .node-title {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: white;
+            color: var(--terminal-green);
             font-weight: bold;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .node-desc {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--terminal-cyan);
             line-height: 1.5;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .node-badge {
@@ -542,6 +549,7 @@
             color: var(--terminal-cyan);
             font-size: 0.9rem;
             word-break: break-word;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .console-line.user {
@@ -583,7 +591,6 @@
             padding: 25px;
             z-index: 1000;
             display: none;
-            font-family: 'Orbitron', sans-serif;
             backdrop-filter: blur(20px);
             box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -606,7 +613,7 @@
         
         .modal-title {
             font-size: clamp(1.2rem, 5vw, 2rem);
-            color: white;
+            color: var(--terminal-green);
             font-family: 'Press Start 2P', cursive;
             text-align: center;
             flex-grow: 1;
@@ -686,6 +693,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
         
+        /* CHANGEMENT : Police Ubuntu Mono pour les titres et contenu de la modale */
         .info-title {
             color: var(--pixel-yellow);
             margin-bottom: 15px;
@@ -694,12 +702,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .info-content {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--terminal-cyan);
             line-height: 1.6;
             font-size: 0.95rem;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .info-content ul {
@@ -736,6 +746,7 @@
             font-size: 0.85rem;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .project-actions {
@@ -751,7 +762,7 @@
             color: white;
             border: none;
             border-radius: 15px;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Ubuntu Mono', monospace;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
@@ -814,6 +825,7 @@
             font-weight: bold;
             min-width: 90px;
             justify-content: center;
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .command:active {
@@ -828,6 +840,7 @@
             text-align: center;
             padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Ubuntu Mono', monospace;
         }
         
         .quick-contact a {
@@ -877,6 +890,34 @@
             background: linear-gradient(90deg, var(--terminal-green), var(--pixel-green));
             width: 0%;
             transition: width 0.3s;
+        }
+        
+        /* Changement de langue */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        
+        .lang-button {
+            background: linear-gradient(135deg, var(--pixel-green), var(--pixel-blue));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Ubuntu Mono', monospace;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .lang-button:active {
+            transform: scale(0.95);
         }
         
         /* Responsive - Optimisations mobiles */
@@ -963,6 +1004,16 @@
             .action-button {
                 padding: 16px 20px;
                 font-size: 1rem;
+            }
+            
+            .language-switcher {
+                top: 85px;
+                right: 15px;
+            }
+            
+            .lang-button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
         
@@ -1151,6 +1202,11 @@
                 padding-top: 0;
                 text-align: right;
             }
+            
+            .language-switcher {
+                top: 30px;
+                right: 30px;
+            }
         }
         
         /* Mode portrait/landscape détection */
@@ -1196,6 +1252,11 @@
             .project-screenshot {
                 height: 150px;
             }
+            
+            .language-switcher {
+                top: 15px;
+                right: 15px;
+            }
         }
         
         /* Améliorations tactiles */
@@ -1231,14 +1292,14 @@
         <h1 class="game-title">CODEX DEVELOPER</h1>
         <p class="subtitle">PORTFOLIO INTERACTIF - NIVEAU PRO</p>
         <button class="start-button" id="startButton">
-            <i class="fas fa-play"></i> COMMENCER LA PARTIE
+            <i class="fas fa-play"></i> COMMENCER LE JEU
         </button>
         <div class="controls-info">
-            <p>🎮 <strong>CONTROLES :</strong> Touchez les nœuds pour explorer</p>
-            <p>⌨️ <strong>CONSOLE :</strong> Tapez des commandes pour interagir</p>
-            <p>🌟 <strong>OBJECTIF :</strong> Découvrir tous les projets et compétences</p>
-            <p>📱 <strong>OPTIMISÉ MOBILE :</strong> Interface tactile fluide</p>
-            <p>👆 <strong>MENU :</strong> Touchez <i class="fas fa-bars"></i> pour naviguer</p>
+            <p>🎮 <strong>CONTRÔLES:</strong> Touchez les nœuds pour explorer</p>
+            <p>⌨️ <strong>CONSOLE:</strong> Tapez des commandes pour interagir</p>
+            <p>🌟 <strong>OBJECTIF:</strong> Découvrez tous les projets et compétences</p>
+            <p>📱 <strong>OPTIMISÉ MOBILE:</strong> Interface tactile fluide</p>
+            <p>👆 <strong>MENU:</strong> Touchez <i class="fas fa-bars"></i> pour naviguer</p>
         </div>
     </div>
     
@@ -1255,10 +1316,17 @@
         <!-- Overlay pour mobile -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         
+        <!-- Bouton changement de langue -->
+        <div class="language-switcher">
+            <button class="lang-button" id="langButton">
+                <i class="fas fa-globe"></i> EN
+            </button>
+        </div>
+        
         <!-- Barre latérale (pbarre) -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3 class="sidebar-title">MENU DE NAVIGATION</h3>
+                <h3 class="sidebar-title" id="sidebarTitle">MENU DE NAVIGATION</h3>
                 <button class="close-sidebar" id="closeSidebar">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1287,7 +1355,7 @@
                     </div>
                     <div class="stat">
                         <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
-                        <div class="stat-value">PROJETS: <span id="projectsCount">8</span>/12</div>
+                        <div class="stat-value">PROJETS: <span id="projectsCount">0</span>/6</div>
                     </div>
                 </div>
                 
@@ -1313,7 +1381,7 @@
                     <div class="console-output" id="consoleOutput">
                         <div class="console-line system">> Système de portfolio Codex Developer initialisé</div>
                         <div class="console-line system">> Bienvenue dans l'interface interactive</div>
-                        <div class="console-line system">> Tapez 'help' pour la liste des commandes</div>
+                        <div class="console-line system">> Tapez 'aide' pour la liste des commandes</div>
                         <div class="console-line system">> Touchez un nœud sur la carte pour commencer</div>
                         <div class="console-line system">> Cliquez sur <i class="fas fa-bars"></i> pour ouvrir le menu latéral</div>
                     </div>
@@ -1324,25 +1392,26 @@
             <!-- Footer avec commandes rapides -->
             <div class="game-footer">
                 <div class="command-list">
-                    <div class="command" data-command="help">
+                    <div class="command" data-command="aide">
                         <i class="fas fa-question-circle"></i> AIDE
                     </div>
-                    <div class="command" data-command="projects">
+                    <div class="command" data-command="projets">
                         <i class="fas fa-folder-open"></i> PROJETS
                     </div>
-                    <div class="command" data-command="skills">
+                    <div class="command" data-command="competences">
                         <i class="fas fa-cogs"></i> COMPÉTENCES
                     </div>
                     <div class="command" data-command="contact">
                         <i class="fas fa-envelope"></i> CONTACT
                     </div>
-                    <div class="command" data-command="clear">
+                    <div class="command" data-command="effacer">
                         <i class="fas fa-eraser"></i> EFFACER
                     </div>
                     <div class="command" id="toggleSidebarCommand">
                         <i class="fas fa-bars"></i> MENU
                     </div>
                 </div>
+                <div class="quick-contact"><i class="fab fa-github"></i> <a href="https://github.com/DorraBN">github</a></div>
                 <div class="quick-contact">
                     <i class="fas fa-envelope"></i> 
                     <a href="mailto:digi.freework24@gmail.com">digi.freework24@gmail.com</a>
@@ -1365,30 +1434,8 @@
     </div>
 
     <script>
-        // Animation de chargement
-        window.addEventListener("load", () => {
-            const loadingScreen = document.getElementById("loadingScreen");
-            const progress = document.getElementById("loadingProgress");
-
-            let p = 0;
-            let interval = setInterval(() => {
-                p += 5;
-                progress.style.width = p + "%";
-
-                if (p >= 100) {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        loadingScreen.style.opacity = "0";
-                        setTimeout(() => {
-                            loadingScreen.style.display = "none";
-                        }, 500);
-                    }, 300);
-                }
-            }, 80);
-        });
-
-        // Données du portfolio
-        const portfolioData = {
+        // Données en français
+        const portfolioDataFR = {
             nodes: [
                 {
                     id: "conversion",
@@ -1401,37 +1448,35 @@
                         title: "Conversion Professionnelle Word ↔ LaTeX",
                         screenshot: "DOCUMENTS TECHNIQUES",
                         description: "Transformation précise de documents académiques, thèses, articles scientifiques et rapports techniques avec gestion avancée des équations mathématiques, tableaux complexes et références bibliographiques.",
-                        technologies: ["Microsoft Word", "LaTeX", "Pandoc", "Overleaf", "BibTeX"],
+                        technologies: ["Microsoft Word", "LaTeX", "Overleaf"],
                         features: [
                             "Conversion préservant la mise en page originale",
                             "Gestion des équations mathématiques complexes",
                             "Références bibliographiques automatiques",
                             "Tableaux et figures optimisés",
                             "Support multilingue"
-                        ],
-                        link: "#contact"
+                        ]
                     }
                 },
                 {
                     id: "design",
                     title: "🎨 DESIGN GRAPHIQUE",
-                    description: "Création d'identités visuelles, logos, maquettes et supports marketing percutants",
+                    description: "Création de posts pour réseaux sociaux",
                     icon: "fas fa-paint-brush",
                     color: "#9c88ff",
                     type: "skill",
                     details: {
                         title: "Design Graphique & Identité Visuelle",
                         screenshot: "PROJETS DESIGN",
-                        description: "Conception d'identités visuelles complètes, logos uniques, maquettes web/mobile, infographies et supports de communication qui marquent les esprits.",
-                        technologies: ["Adobe Creative Suite", "Figma", "Canva", "Blender", "After Effects"],
+                        description: "Conception de posts pour réseaux sociaux.",
+                        technologies: ["Illustrator", "Figma", "Canva", "After Effects", "IA"],
                         features: [
-                            "Identité visuelle complète",
-                            "Logos mémorables et uniques",
-                            "Maquettes web et mobile",
-                            "Infographies et visualisations",
-                            "Supports print et digital"
+                            "Posts pour réseaux sociaux",
+                            "Utilisation de l'IA"
                         ],
-                        link: "#contact"
+                        examples: [
+                            { name: "Portfolio", url: "https://www.behance.net/dorransira/projects" },
+                        ]
                     }
                 },
                 {
@@ -1445,15 +1490,19 @@
                         title: "Développement de Sites Statiques",
                         screenshot: "SITES WEB STATIQUES",
                         description: "Création de sites vitrines, portfolios et landing pages performants avec technologies modernes pour une vitesse de chargement optimale et un excellent référencement.",
-                        technologies: ["HTML5", "CSS3", "JavaScript", "GSAP", "Three.js"],
+                        technologies: ["HTML5", "CSS3", "JavaScript", "NextJS", "Angular"],
                         features: [
-                            "Temps de chargement < 2 secondes",
                             "Design responsive et mobile-first",
                             "SEO optimisé",
                             "Animations fluides",
                             "Hébergement gratuit possible"
                         ],
-                        link: "https://static-example.vercel.app"
+                        examples: [
+                            { name: "Application 1", url: "https://dorrabn.github.io/app/" },
+                            { name: "Application 2", url: "https://dorrabn.github.io/app1/" },
+                            { name: "Application 3", url: "https://dorrabn.github.io/app3/" },
+                            { name: "Application 4", url: "https://pfe25-4z3b.vercel.app/" }
+                        ]
                     }
                 },
                 {
@@ -1475,7 +1524,12 @@
                             "APIs RESTful",
                             "Déploiement cloud"
                         ],
-                        link: "https://dynamic-app.example.com"
+                        
+                        
+                        examples: [
+                            { name: "Application 1", url: "https://drive.google.com/file/d/1b5kIqUDiHW_mq-sim-QGijO7RKM4wl8n/view?usp=sharing" },
+                          
+                        ]
                     }
                 },
                 {
@@ -1489,7 +1543,7 @@
                         title: "Analyses de Données & Dashboards Power BI",
                         screenshot: "DASHBOARDS INTERACTIFS",
                         description: "Création de tableaux de bord Power BI interactifs, analyses de données complexes et visualisations pour transformer vos données en insights actionnables.",
-                        technologies: ["Power BI", "DAX", "Power Query", "SQL", "Python"],
+                        technologies: ["Power BI", "SQL", "Python"],
                         features: [
                             "Dashboards interactifs et personnalisables",
                             "Connecteurs multiples (SQL, Excel, APIs)",
@@ -1497,34 +1551,263 @@
                             "Actualisation automatique",
                             "Rapports exportables"
                         ],
-                        link: "#contact"
+                         examples: [
+                            { name: "Portfolio", url: "https://docs.google.com/document/d/1sQJ5MGpRsNOOk4wGjEfwhtPazSDWhymRm10g22CihhE/edit?tab=t.0" },
+                        ]
+                    }
+                },
+                
+                {
+                    id: "data_entry",
+                    title: "📝 SAISIE DE DONNÉES",
+                    description: "Saisie précise et organisation de données dans Excel et Google Sheets",
+                    icon: "fas fa-keyboard",
+                    color: "#8c7ae6",
+                    type: "skill",
+                    details: {
+                        title: "Saisie de Données Professionnelle",
+                        screenshot: "SAISIE DE DONNÉES",
+                        description: "Saisie précise et organisation efficace de données dans Excel, Google Sheets et autres outils de traitement de données.",
+                        technologies: ["Excel", "Google Sheets", "LaTeX"],
+                        features: [
+                            "Saisie précise et rapide",
+                            "Organisation des données",
+                            "Création de tableaux",
+                            "Formules et calculs",
+                            "Mise en forme professionnelle"
+                        ]
+                    }
+                },
+                
+        
+            ],
+            discoveredNodes: [],
+            currentLanguage: "fr",
+            translations: {
+                fr: {
+                    start: "COMMENCER LE JEU",
+                    consolePlaceholder: "> Tapez une commande...",
+                    loading: "CHARGEMENT DU PORTFOLIO...",
+                    projects: "PROJETS",
+                    skills: "COMPÉTENCES",
+                    contact: "CONTACT",
+                    clear: "EFFACER",
+                    help: "AIDE",
+                    menu: "MENU",
+                    sidebarTitle: "MENU DE NAVIGATION",
+                    consoleTitle: "TERMINAL DE COMMANDES",
+                    consoleLines: [
+                        "> Système de portfolio Codex Developer initialisé",
+                        "> Bienvenue dans l'interface interactive",
+                        "> Tapez 'aide' pour la liste des commandes",
+                        "> Touchez un nœud sur la carte pour commencer",
+                        "> Cliquez sur <i class='fas fa-bars'></i> pour ouvrir le menu latéral"
+                    ],
+                    gameTitle: "CODEX DEVELOPER",
+                    level: "NIVEAU",
+                    xp: "XP",
+                    zone: "ZONE: PORTFOLIO",
+                    commands: {
+                        help: "=== COMMANDES DISPONIBLES ===",
+                        projects: "=== MES PROJETS ===",
+                        skills: "=== MES COMPÉTENCES ===",
+                        contact: "=== CONTACT ===",
+                        about: "=== À PROPOS ===",
+                        level: "Niveau actuel",
+                        clear: "Console effacée. Tapez 'aide' pour les commandes.",
+                        menu: "> Menu de navigation basculé",
+                        email: "Client email ouvert. Rédigez votre message!"
+                    }
+                },
+                en: {
+                    start: "START GAME",
+                    consolePlaceholder: "> Type a command...",
+                    loading: "LOADING PORTFOLIO...",
+                    projects: "PROJECTS",
+                    skills: "SKILLS",
+                    contact: "CONTACT",
+                    clear: "CLEAR",
+                    help: "HELP",
+                    menu: "MENU",
+                    sidebarTitle: "NAVIGATION MENU",
+                    consoleTitle: "COMMAND TERMINAL",
+                    consoleLines: [
+                        "> Codex Developer portfolio system initialized",
+                        "> Welcome to interactive interface",
+                        "> Type 'help' for command list",
+                        "> Touch a node on the map to begin",
+                        "> Click <i class='fas fa-bars'></i> to open side menu"
+                    ],
+                    gameTitle: "CODEX DEVELOPER",
+                    level: "LEVEL",
+                    xp: "XP",
+                    zone: "ZONE: PORTFOLIO",
+                    commands: {
+                        help: "=== AVAILABLE COMMANDS ===",
+                        projects: "=== MY PROJECTS ===",
+                        skills: "=== MY SKILLS ===",
+                        contact: "=== CONTACT ===",
+                        about: "=== ABOUT ME ===",
+                        level: "Current level",
+                        clear: "Console cleared. Type 'help' for commands.",
+                        menu: "> Navigation menu toggled",
+                        email: "Email client opened. Write your message!"
+                    }
+                }
+            }
+        };
+
+        // Données en anglais
+        const portfolioDataEN = {
+            nodes: [
+                {
+                    id: "conversion",
+                    title: "🔄 WORD/LATEX CONVERSION",
+                    description: "Expert in complex document conversion with perfect preservation of mathematical formulas and references",
+                    icon: "fas fa-exchange-alt",
+                    color: "#00a8ff",
+                    type: "skill",
+                    details: {
+                        title: "Professional Word ↔ LaTeX Conversion",
+                        screenshot: "TECHNICAL DOCUMENTS",
+                        description: "Precise transformation of academic documents, theses, scientific articles and technical reports with advanced management of mathematical equations, complex tables and bibliographic references.",
+                        technologies: ["Microsoft Word", "LaTeX", "Overleaf"],
+                        features: [
+                            "Conversion preserving original layout",
+                            "Management of complex mathematical equations",
+                            "Automatic bibliographic references",
+                            "Optimized tables and figures",
+                            "Multilingual support"
+                        ]
                     }
                 },
                 {
-                    id: "portfolio",
-                    title: "🎮 PORTFOLIO JEU",
-                    description: "Ce portfolio interactif sous forme de jeu vidéo",
-                    icon: "fas fa-gamepad",
-                    color: "#00ff41",
+                    id: "design",
+                    title: "🎨 GRAPHIC DESIGN",
+                    description: "Creation of social media posts",
+                    icon: "fas fa-paint-brush",
+                    color: "#9c88ff",
+                    type: "skill",
+                    details: {
+                        title: "Graphic Design & Visual Identity",
+                        screenshot: "DESIGN PROJECTS",
+                        description: "Creation of social media posts.",
+                        technologies: ["Illustrator", "Figma", "Canva", "After Effects", "AI"],
+                        features: [
+                            "Social media posts",
+                            "Use of AI"
+                        ],
+                        examples: [
+                            { name: "Portfolio", url: "https://www.behance.net/dorransira/projects" },
+                        ]
+                    }
+                },
+                {
+                    id: "static",
+                    title: "🌐 STATIC WEBSITES",
+                    description: "Ultra-fast, secure websites optimized for SEO",
+                    icon: "fas fa-file-code",
+                    color: "#4cd137",
                     type: "project",
                     details: {
-                        title: "Portfolio Interactif Jeu Vidéo",
-                        screenshot: "PORTFOLIO JEU",
-                        description: "Conception et développement de ce portfolio unique sous forme de jeu vidéo interactif, combinant design créatif et développement technique avancé.",
-                        technologies: ["HTML5", "CSS3", "JavaScript", "Canvas API", "GSAP"],
+                        title: "Static Website Development",
+                        screenshot: "STATIC WEBSITES",
+                        description: "Creation of high-performance showcase websites, portfolios and landing pages with modern technologies for optimal loading speed and excellent SEO.",
+                        technologies: ["HTML5", "CSS3", "JavaScript", "NextJS", "Angular"],
                         features: [
-                            "Interface jeu vidéo unique",
-                            "Animations fluides et interactives",
-                            "Système de progression",
-                            "Console de commandes fonctionnelle",
-                            "Design pixel art moderne"
+                            "Responsive and mobile-first design",
+                            "Optimized SEO",
+                            "Smooth animations",
+                            "Possible free hosting"
                         ],
-                        link: "#"
+                        examples: [
+                            { name: "Application 1", url: "https://dorrabn.github.io/app/" },
+                            { name: "Application 2", url: "https://dorrabn.github.io/app1/" },
+                            { name: "Application 3", url: "https://dorrabn.github.io/app3/" },
+                            { name: "Application 4", url: "https://pfe25-4z3b.vercel.app/" }
+                        ]
+                    }
+                },
+                {
+                    id: "dynamic",
+                    title: "⚡ DYNAMIC APPLICATIONS",
+                    description: "Interactive web applications with databases and advanced features",
+                    icon: "fas fa-bolt",
+                    color: "#fbc531",
+                    type: "project",
+                    details: {
+                        title: "Dynamic Web Applications",
+                        screenshot: "WEB APPLICATIONS",
+                        description: "Development of complete web applications with back-end, databases, user authentication and interactive interfaces.",
+                        technologies: ["React", "Node.js", "MongoDB", "Express", "Firebase"],
+                        features: [
+                            "Full-stack applications",
+                            "Secure databases",
+                            "Authentication systems",
+                            "RESTful APIs",
+                            "Cloud deployment"
+                        ],
+                        
+                        examples: [
+                            { name: "Application 1", url: "https://drive.google.com/file/d/1b5kIqUDiHW_mq-sim-QGijO7RKM4wl8n/view?usp=sharing" },
+                          
+                        ]
+                    }
+                },
+                {
+                    id: "powerbi",
+                    title: "📊 POWER BI & ANALYSIS",
+                    description: "Interactive dashboards and data analysis for decision making",
+                    icon: "fas fa-chart-line",
+                    color: "#e84118",
+                    type: "skill",
+                    details: {
+                        title: "Data Analysis & Power BI Dashboards",
+                        screenshot: "INTERACTIVE DASHBOARDS",
+                        description: "Creation of interactive Power BI dashboards, complex data analysis and visualizations to transform your data into actionable insights.",
+                        technologies: ["Power BI", "SQL", "Python"],
+                        features: [
+                            "Interactive and customizable dashboards",
+                            "Multiple connectors (SQL, Excel, APIs)",
+                            "Advanced visualizations",
+                            "Automatic refresh",
+                            "Exportable reports"
+                        ],
+                        
+                        examples: [
+                            { name: "Portfolio", url: "https://docs.google.com/document/d/1sQJ5MGpRsNOOk4wGjEfwhtPazSDWhymRm10g22CihhE/edit?tab=t.0" },
+                        ]
+                    }
+                },
+                
+                {
+                    id: "data_entry",
+                    title: "📝 DATA ENTRY",
+                    description: "Precise data entry and organization in Excel and Google Sheets",
+                    icon: "fas fa-keyboard",
+                    color: "#8c7ae6",
+                    type: "skill",
+                    details: {
+                        title: "Professional Data Entry",
+                        screenshot: "DATA ENTRY",
+                        description: "Accurate data entry and efficient organization in Excel, Google Sheets and other data processing tools.",
+                        technologies: ["Excel", "Google Sheets", "LaTeX"],
+                        features: [
+                            "Accurate and fast data entry",
+                            "Data organization",
+                            "Table creation",
+                            "Formulas and calculations",
+                            "Professional formatting"
+                        ]
                     }
                 }
             ],
-            discoveredNodes: []
+            discoveredNodes: [],
+            currentLanguage: "en",
+            translations: portfolioDataFR.translations
         };
+
+        let portfolioData = portfolioDataFR; // Langue par défaut: français
 
         // Éléments DOM
         const startScreen = document.getElementById('startScreen');
@@ -1541,6 +1824,8 @@
         const playerLevel = document.getElementById('playerLevel');
         const xpPoints = document.getElementById('xpPoints');
         const projectsCount = document.getElementById('projectsCount');
+        const langButton = document.getElementById('langButton');
+        const sidebarTitle = document.getElementById('sidebarTitle');
         
         // Éléments sidebar
         const sidebar = document.getElementById('sidebar');
@@ -1550,6 +1835,63 @@
         const gameWorld = document.getElementById('gameWorld');
         const toggleSidebarCommand = document.getElementById('toggleSidebarCommand');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Fonction pour changer de langue
+        function switchLanguage() {
+            if (portfolioData === portfolioDataFR) {
+                portfolioData = portfolioDataEN;
+                langButton.innerHTML = '<i class="fas fa-globe"></i> FR';
+                portfolioData.currentLanguage = "en";
+            } else {
+                portfolioData = portfolioDataFR;
+                langButton.innerHTML = '<i class="fas fa-globe"></i> EN';
+                portfolioData.currentLanguage = "fr";
+            }
+            
+            updateUIForLanguage();
+        }
+
+        // Mettre à jour l'interface pour la langue
+        function updateUIForLanguage() {
+            const lang = portfolioData.currentLanguage;
+            const t = portfolioData.translations[lang];
+            
+            // Mettre à jour le bouton start
+            startButton.innerHTML = `<i class="fas fa-play"></i> ${t.start}`;
+            
+            // Mettre à jour le placeholder de la console
+            consoleInput.placeholder = t.consolePlaceholder;
+            
+            // Mettre à jour le titre de la sidebar
+            sidebarTitle.textContent = t.sidebarTitle;
+            
+            // Mettre à jour le titre de la console
+            document.querySelector('.console-header').innerHTML = `<i class="fas fa-terminal"></i> ${t.consoleTitle}`;
+            
+            // Mettre à jour les commandes rapides
+            document.querySelector('[data-command="aide"]').innerHTML = `<i class="fas fa-question-circle"></i> ${t.help}`;
+            document.querySelector('[data-command="projets"]').innerHTML = `<i class="fas fa-folder-open"></i> ${t.projects}`;
+            document.querySelector('[data-command="competences"]').innerHTML = `<i class="fas fa-cogs"></i> ${t.skills}`;
+            document.querySelector('[data-command="contact"]').innerHTML = `<i class="fas fa-envelope"></i> ${t.contact}`;
+            document.querySelector('[data-command="effacer"]').innerHTML = `<i class="fas fa-eraser"></i> ${t.clear}`;
+            document.getElementById('toggleSidebarCommand').innerHTML = `<i class="fas fa-bars"></i> ${t.menu}`;
+            
+            // Mettre à jour le HUD
+            document.querySelector('.stat-value:nth-child(1)').innerHTML = `${t.level} <span id="playerLevel">15</span>`;
+            document.querySelector('.stat-value:nth-child(2)').innerHTML = `<span id="xpPoints">2470</span> ${t.xp}`;
+            document.querySelector('.game-title-hud').textContent = t.gameTitle;
+            document.querySelector('.level-indicator').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${t.zone}`;
+            
+            // Effacer et recharger la console
+            consoleOutput.innerHTML = '';
+            t.consoleLines.forEach(line => {
+                addConsoleLine("system", line);
+            });
+            
+            // Recharger la carte et la sidebar
+            initMap();
+            initSidebar();
+        }
 
         // Fonction pour basculer la sidebar
         function toggleSidebar() {
@@ -1562,11 +1904,11 @@
             const icon = sidebarToggle.querySelector('i');
             if (sidebar.classList.contains('open')) {
                 icon.className = 'fas fa-times';
-                addConsoleLine("system", "> Menu de navigation ouvert");
+                addConsoleLine("system", portfolioData.translations[portfolioData.currentLanguage].commands.menu);
                 document.body.style.overflow = 'hidden';
             } else {
                 icon.className = 'fas fa-bars';
-                addConsoleLine("system", "> Menu de navigation fermé");
+                addConsoleLine("system", portfolioData.translations[portfolioData.currentLanguage].commands.menu);
                 document.body.style.overflow = 'auto';
             }
             
@@ -1635,61 +1977,71 @@
 
         // Commandes du terminal
         const commands = {
-            help: () => {
-                addConsoleLine("system", "=== COMMANDES DISPONIBLES ===");
-                addConsoleLine("system", "help - Afficher cette aide");
-                addConsoleLine("system", "projects - Lister tous les projets");
-                addConsoleLine("system", "skills - Afficher mes compétences");
-                addConsoleLine("system", "contact - Informations de contact");
-                addConsoleLine("system", "clear - Effacer la console");
-                addConsoleLine("system", "about - À propos de moi");
-                addConsoleLine("system", "email - Envoyer un email");
-                addConsoleLine("system", "level - Voir mon niveau");
-                addConsoleLine("system", "menu - Ouvrir/fermer le menu latéral");
+            aide: () => {
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", t.help);
+                addConsoleLine("system", "aide - " + (portfolioData.currentLanguage === "fr" ? "Afficher cette aide" : "Show this help"));
+                addConsoleLine("system", "projets - " + (portfolioData.currentLanguage === "fr" ? "Lister tous les projets" : "List all projects"));
+                addConsoleLine("system", "competences - " + (portfolioData.currentLanguage === "fr" ? "Afficher mes compétences" : "Show my skills"));
+                addConsoleLine("system", "contact - " + (portfolioData.currentLanguage === "fr" ? "Informations de contact" : "Contact information"));
+                addConsoleLine("system", "effacer - " + (portfolioData.currentLanguage === "fr" ? "Effacer la console" : "Clear console"));
+                addConsoleLine("system", "apropos - " + (portfolioData.currentLanguage === "fr" ? "À propos de moi" : "About me"));
+                addConsoleLine("system", "email - " + (portfolioData.currentLanguage === "fr" ? "Envoyer un email" : "Send email"));
+                addConsoleLine("system", "niveau - " + (portfolioData.currentLanguage === "fr" ? "Voir mon niveau" : "See my level"));
+                addConsoleLine("system", "menu - " + (portfolioData.currentLanguage === "fr" ? "Ouvrir/fermer le menu latéral" : "Open/close side menu"));
             },
-            projects: () => {
-                addConsoleLine("system", "=== MES PROJETS ===");
+            projets: () => {
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", t.projects);
                 portfolioData.nodes.filter(node => node.type === 'project').forEach(project => {
                     addConsoleLine("system", `• ${project.title} - ${project.description}`);
                 });
             },
-            skills: () => {
-                addConsoleLine("system", "=== MES COMPÉTENCES ===");
+            competences: () => {
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", t.skills);
                 portfolioData.nodes.filter(node => node.type === 'skill').forEach(skill => {
                     addConsoleLine("system", `• ${skill.title} - ${skill.description}`);
                 });
             },
             contact: () => {
-                addConsoleLine("system", "=== CONTACT ===");
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", t.contact);
                 addConsoleLine("system", "📧 Email: digi.freework24@gmail.com");
-                addConsoleLine("system", "💼 Disponible pour des projets freelance");
-                addConsoleLine("system", "⚡ Réponse sous 24h");
+                addConsoleLine("system", "💼 " + (portfolioData.currentLanguage === "fr" ? "Disponible pour des projets freelance" : "Available for freelance projects"));
+                addConsoleLine("system", "⚡ " + (portfolioData.currentLanguage === "fr" ? "Réponse sous 24h" : "Response within 24h"));
             },
-            clear: () => {
+            effacer: () => {
                 consoleOutput.innerHTML = '';
-                addConsoleLine("system", "Console effacée. Tapez 'help' pour les commandes.");
+                addConsoleLine("system", portfolioData.translations[portfolioData.currentLanguage].commands.clear);
             },
-            about: () => {
-                addConsoleLine("system", "=== À PROPOS ===");
-                addConsoleLine("system", "Développeur full-stack spécialisé dans:");
-                addConsoleLine("system", "- Conversion Word/LaTeX professionnelle");
-                addConsoleLine("system", "- Design graphique créatif");
-                addConsoleLine("system", "- Développement web (statique & dynamique)");
-                addConsoleLine("system", "- Analyse de données & Power BI");
-                addConsoleLine("system", "Passionné par la création d'expériences digitales uniques!");
+            apropos: () => {
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", t.about);
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "Développeur full-stack spécialisé dans:" : "Full-stack developer specialized in:");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Conversion Word/LaTeX professionnelle" : "- Professional Word/LaTeX conversion");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Design graphique créatif" : "- Creative graphic design");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Développement web (statique & dynamique)" : "- Web development (static & dynamic)");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "- Analyse de données & Power BI" : "- Data analysis & Power BI");
+                addConsoleLine("system", portfolioData.currentLanguage === "fr" ? "Passionné par la création d'expériences digitales uniques!" : "Passionate about creating unique digital experiences!");
             },
             email: () => {
-                window.open('mailto:digi.freework24@gmail.com?subject=Demande%20de%20devis&body=Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?');
-                addConsoleLine("system", "Client email ouvert. Rédigez votre message!");
+                window.open('mailto:digi.freework24@gmail.com?subject=' + 
+                    (portfolioData.currentLanguage === "fr" ? 'Demande%20de%20devis' : 'Quote%20Request') + 
+                    '&body=' + (portfolioData.currentLanguage === "fr" ? 
+                    'Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?' : 
+                    'Hello,%0D%0A%0D%0AI%20am%20interested%20in%20your%20services.%0D%0ACan%20you%20contact%20me%20to%20discuss%20my%20project?'));
+                addConsoleLine("system", portfolioData.translations[portfolioData.currentLanguage].commands.email);
             },
-            level: () => {
-                addConsoleLine("system", `Niveau actuel: ${playerLevel.textContent}`);
-                addConsoleLine("system", `Points d'expérience: ${xpPoints.textContent}`);
-                addConsoleLine("system", `Projets découverts: ${portfolioData.discoveredNodes.length}/${portfolioData.nodes.length}`);
+            niveau: () => {
+                const t = portfolioData.translations[portfolioData.currentLanguage].commands;
+                addConsoleLine("system", `${t.level}: ${playerLevel.textContent}`);
+                addConsoleLine("system", `${portfolioData.currentLanguage === "fr" ? "Points d'expérience" : "Experience points"}: ${xpPoints.textContent}`);
+                addConsoleLine("system", `${portfolioData.currentLanguage === "fr" ? "Projets découverts" : "Discovered projects"}: ${portfolioData.discoveredNodes.length}/${portfolioData.nodes.length}`);
             },
             menu: () => {
                 toggleSidebar();
-                addConsoleLine("system", "> Menu de navigation basculé");
+                addConsoleLine("system", portfolioData.translations[portfolioData.currentLanguage].commands.menu);
             }
         };
 
@@ -1702,9 +2054,16 @@
             initMap();
             initSidebar();
             
-            addConsoleLine("system", "> Portfolio interactif chargé avec succès!");
-            addConsoleLine("system", "> Explorez les nœuds ou tapez 'help'");
-            addConsoleLine("system", "> Touchez le bouton MENU pour ouvrir la navigation latérale");
+            const lang = portfolioData.currentLanguage;
+            addConsoleLine("system", portfolioData.currentLanguage === "fr" ? 
+                "> Portfolio interactif chargé avec succès!" : 
+                "> Interactive portfolio loaded successfully!");
+            addConsoleLine("system", portfolioData.currentLanguage === "fr" ? 
+                "> Explorez les nœuds ou tapez 'aide'" : 
+                "> Explore nodes or type 'help'");
+            addConsoleLine("system", portfolioData.currentLanguage === "fr" ? 
+                "> Touchez le bouton MENU pour ouvrir la navigation latérale" : 
+                "> Touch the MENU button to open side navigation");
             
             projectsCount.textContent = "0";
             playerLevel.textContent = "15";
@@ -1748,13 +2107,18 @@
                     nodeElement.style.transform = 'translateY(0)';
                 }, index * 150);
                 
+                let badgeText = '';
+                if (node.type === 'project') badgeText = portfolioData.currentLanguage === "fr" ? "PROJET" : "PROJECT";
+                else if (node.type === 'skill') badgeText = portfolioData.currentLanguage === "fr" ? "COMPÉTENCE" : "SKILL";
+                else if (node.type === 'link') badgeText = "LIEN";
+                
                 nodeElement.innerHTML = `
                     <div class="node-icon" style="background: linear-gradient(135deg, ${node.color}, #2c3e50)">
                         <i class="${node.icon}"></i>
                     </div>
                     <h3 class="node-title">${node.title}</h3>
                     <p class="node-desc">${node.description}</p>
-                    ${node.type === 'project' ? '<span class="node-badge">PROJET</span>' : '<span class="node-badge">COMPÉTENCE</span>'}
+                    <span class="node-badge">${badgeText}</span>
                 `;
                 
                 // Événements tactiles optimisés
@@ -1788,7 +2152,9 @@
                 const newLevel = Math.floor(portfolioData.discoveredNodes.length / 2) + 15;
                 playerLevel.textContent = newLevel;
                 
-                addConsoleLine("system", `Nouveau nœud découvert: ${node.title} (+${xpGain} XP)`);
+                addConsoleLine("system", 
+                    (portfolioData.currentLanguage === "fr" ? "Nouveau nœud découvert: " : "New node discovered: ") + 
+                    `${node.title} (+${xpGain} XP)`);
                 
                 // Mettre à jour le statut dans la sidebar
                 updateSidebarNode(node.id);
@@ -1802,13 +2168,60 @@
             const sidebarNode = document.querySelector(`.sidebar-node[data-node-id="${nodeId}"]`);
             if (sidebarNode) {
                 sidebarNode.classList.add('active');
-                sidebarNode.innerHTML += `<div style="margin-top: 10px; color: #00ff41; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;"><i class="fas fa-check-circle"></i> Découvert</div>`;
+                sidebarNode.innerHTML += `<div style="margin-top: 10px; color: #00ff41; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-check-circle"></i> ${portfolioData.currentLanguage === "fr" ? "Découvert" : "Discovered"}
+                </div>`;
             }
         }
 
         // Ouvrir la modale
         function openModal(node) {
             modalTitle.textContent = node.details.title;
+            
+            let examplesHTML = '';
+            if (node.details.examples && node.details.examples.length > 0) {
+                examplesHTML = `
+                    <div class="info-box">
+                        <h3 class="info-title"><i class="fas fa-external-link-alt"></i> ${portfolioData.currentLanguage === "fr" ? "EXEMPLES DE SITES" : "WEBSITE EXAMPLES"}</h3>
+                        <div class="info-content">
+                            <ul>
+                                ${node.details.examples.map(example => 
+                                    `<li>
+                                        <a href="${example.url}" target="_blank" style="color: var(--terminal-green); text-decoration: none;">
+                                            ${example.name} <i class="fas fa-external-link-alt" style="font-size: 0.8rem;"></i>
+                                        </a>
+                                    </li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            let actionsHTML = '';
+            if (node.type === 'link' && node.details.githubUrl) {
+                actionsHTML = `
+                    <div class="project-actions">
+                        <button class="action-button" onclick="window.open('${node.details.githubUrl}', '_blank')">
+                            <i class="fab fa-github"></i> ${portfolioData.currentLanguage === "fr" ? "VISITER GITHUB" : "VISIT GITHUB"}
+                        </button>
+                        <button class="action-button secondary" onclick="addConsoleLine('user', '> ${portfolioData.currentLanguage === "fr" ? "Plus d'infos sur" : "More info about"} ${node.title}')">
+                            <i class="fas fa-terminal"></i> ${portfolioData.currentLanguage === "fr" ? "COMMANDE TERMINAL" : "TERMINAL COMMAND"}
+                        </button>
+                    </div>
+                `;
+            } else {
+                actionsHTML = `
+                    <div class="project-actions">
+                        <button class="action-button" onclick="sendEmail('${node.details.title}')">
+                            <i class="fas fa-envelope"></i> ${portfolioData.currentLanguage === "fr" ? "ME CONTACTER" : "CONTACT ME"}
+                        </button>
+                        <button class="action-button secondary" onclick="addConsoleLine('user', '> ${portfolioData.currentLanguage === "fr" ? "Plus d'infos sur" : "More info about"} ${node.title}')">
+                            <i class="fas fa-terminal"></i> ${portfolioData.currentLanguage === "fr" ? "COMMANDE TERMINAL" : "TERMINAL COMMAND"}
+                        </button>
+                    </div>
+                `;
+            }
             
             modalContent.innerHTML = `
                 <div class="project-screenshot" style="background: linear-gradient(135deg, ${node.color}, #2c3e50)">
@@ -1817,38 +2230,28 @@
                 
                 <div class="project-info">
                     <div class="info-box">
-                        <h3 class="info-title"><i class="fas fa-info-circle"></i> DESCRIPTION</h3>
+                        <h3 class="info-title"><i class="fas fa-info-circle"></i> ${portfolioData.currentLanguage === "fr" ? "DESCRIPTION" : "DESCRIPTION"}</h3>
                         <p class="info-content">${node.details.description}</p>
                     </div>
                     
                     <div class="info-box">
-                        <h3 class="info-title"><i class="fas fa-list-check"></i> FONCTIONNALITÉS</h3>
+                        <h3 class="info-title"><i class="fas fa-list-check"></i> ${portfolioData.currentLanguage === "fr" ? "FONCTIONNALITÉS" : "FEATURES"}</h3>
                         <ul class="info-content">
                             ${node.details.features.map(feature => `<li>${feature}</li>`).join('')}
                         </ul>
                     </div>
                     
                     <div class="info-box">
-                        <h3 class="info-title"><i class="fas fa-code"></i> TECHNOLOGIES</h3>
+                        <h3 class="info-title"><i class="fas fa-code"></i> ${portfolioData.currentLanguage === "fr" ? "TECHNOLOGIES" : "TECHNOLOGIES"}</h3>
                         <div class="tech-stack">
                             ${node.details.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                         </div>
                     </div>
+                    
+                    ${examplesHTML}
                 </div>
                 
-                <div class="project-actions">
-                    ${node.details.link === '#contact' ? 
-                        `<button class="action-button" onclick="sendEmail()">
-                            <i class="fas fa-envelope"></i> DEMANDER UN DEVIS
-                        </button>` : 
-                        `<button class="action-button" onclick="window.open('${node.details.link}', '_blank')">
-                            <i class="fas fa-external-link-alt"></i> VISITER LE PROJET
-                        </button>`
-                    }
-                    <button class="action-button secondary" onclick="addConsoleLine('user', '> Plus d\\'infos sur ${node.title}')">
-                        <i class="fas fa-terminal"></i> COMMANDE TERMINAL
-                    </button>
-                </div>
+                ${actionsHTML}
             `;
             
             projectModal.style.display = 'block';
@@ -1881,7 +2284,7 @@
         function addConsoleLine(type, text) {
             const line = document.createElement('div');
             line.className = `console-line ${type}`;
-            line.textContent = text;
+            line.innerHTML = text;
             consoleOutput.appendChild(line);
             
             consoleOutput.scrollTop = consoleOutput.scrollHeight;
@@ -1896,10 +2299,39 @@
                 if (command) {
                     addConsoleLine("user", `> ${command}`);
                     
-                    if (commands[command]) {
-                        commands[command]();
+                    // Adapter les commandes selon la langue
+                    let actualCommand = command;
+                    if (portfolioData.currentLanguage === "fr") {
+                        // Traduction des commandes françaises
+                        if (command === 'help' || command === 'aide') actualCommand = 'aide';
+                        else if (command === 'projects' || command === 'projets') actualCommand = 'projets';
+                        else if (command === 'skills' || command === 'competences') actualCommand = 'competences';
+                        else if (command === 'contact') actualCommand = 'contact';
+                        else if (command === 'clear' || command === 'effacer') actualCommand = 'effacer';
+                        else if (command === 'about' || command === 'apropos') actualCommand = 'apropos';
+                        else if (command === 'level' || command === 'niveau') actualCommand = 'niveau';
+                        else if (command === 'menu') actualCommand = 'menu';
+                        else if (command === 'email') actualCommand = 'email';
                     } else {
-                        addConsoleLine("system", `Commande inconnue: ${command}. Tapez 'help' pour la liste des commandes.`);
+                        // Commandes en anglais
+                        if (command === 'help') actualCommand = 'aide';
+                        else if (command === 'projects') actualCommand = 'projets';
+                        else if (command === 'skills') actualCommand = 'competences';
+                        else if (command === 'contact') actualCommand = 'contact';
+                        else if (command === 'clear') actualCommand = 'effacer';
+                        else if (command === 'about') actualCommand = 'apropos';
+                        else if (command === 'level') actualCommand = 'niveau';
+                        else if (command === 'menu') actualCommand = 'menu';
+                        else if (command === 'email') actualCommand = 'email';
+                    }
+                    
+                    if (commands[actualCommand]) {
+                        commands[actualCommand]();
+                    } else {
+                        addConsoleLine("system", 
+                            (portfolioData.currentLanguage === "fr" ? 
+                            `Commande inconnue: ${command}. Tapez 'aide' pour la liste des commandes.` : 
+                            `Unknown command: ${command}. Type 'help' for command list.`));
                     }
                 }
             }
@@ -1947,9 +2379,15 @@
         });
 
         // Fonction pour envoyer un email
-        window.sendEmail = function() {
-            window.open('mailto:digi.freework24@gmail.com?subject=Demande%20de%20devis%20portfolio&body=Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services%20de%20${modalTitle.textContent}.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?');
-            addConsoleLine("system", "> Email de contact ouvert. Rédigez votre demande!");
+        window.sendEmail = function(service) {
+            const lang = portfolioData.currentLanguage;
+            window.open('mailto:digi.freework24@gmail.com?subject=' + 
+                (lang === "fr" ? 'Demande%20de%20devis%20pour%20' : 'Quote%20Request%20for%20') + 
+                encodeURIComponent(service) + 
+                '&body=' + (lang === "fr" ? 
+                'Bonjour,%0D%0A%0D%0AJe%20suis%20intéressé(e)%20par%20vos%20services%20de%20' + encodeURIComponent(service) + '.%0D%0APouvez-vous%20me%20contacter%20pour%20discuter%20de%20mon%20projet?' : 
+                'Hello,%0D%0A%0D%0AI%20am%20interested%20in%20your%20' + encodeURIComponent(service) + '%20services.%0D%0ACan%20you%20contact%20me%20to%20discuss%20my%20project?'));
+            addConsoleLine("system", portfolioData.translations[lang].commands.email);
             closeProjectModal();
         };
 
@@ -1979,6 +2417,7 @@
         toggleSidebarCommand.addEventListener('click', toggleSidebar);
         sidebarToggle.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
+        langButton.addEventListener('click', switchLanguage);
         
         // Événements tactiles pour le toggle
         sidebarToggle.addEventListener('touchstart', (e) => {
@@ -2032,10 +2471,33 @@
             
             createStartParticles();
             
+            // Animation de chargement
+            const loadingScreen = document.getElementById("loadingScreen");
+            const progress = document.getElementById("loadingProgress");
+
+            let p = 0;
+            let interval = setInterval(() => {
+                p += 5;
+                progress.style.width = p + "%";
+
+                if (p >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = "0";
+                        setTimeout(() => {
+                            loadingScreen.style.display = "none";
+                        }, 500);
+                    }, 300);
+                }
+            }, 80);
+            
             // Détection du mode tactile
             if ('ontouchstart' in window || navigator.maxTouchPoints) {
                 document.body.classList.add('touch-device');
             }
+            
+            // Initialiser la langue en français
+            updateUIForLanguage();
         });
 
         // Effet de particules pour l'écran de démarrage
